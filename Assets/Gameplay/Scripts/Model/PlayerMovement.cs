@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private float horizontal;
     private float vertical;
-    private float speed;
+    private float speed = 2f;
     private bool facingRight = false;
     private bool facingLeft = false;
     private bool facingDown = false;
@@ -31,35 +31,59 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-
+        if (facingLeft || facingRight)
+        {
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        } else if (facingUp || facingDown)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, vertical * speed);
+        } else
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+        }
+        
     }
 
     private void updateFacing()
     {
-        if (facingRight && horizontal < 0f)
+        if (horizontal < 0f && vertical == 0f)
         {
             facingRight = false;
             facingLeft = true;
-            facingU
+            facingUp = false;
+            facingDown = false;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
 
-        } else if (!facingRight && horizontal > 0f)
+        } else if (horizontal > 0f && vertical == 0f)
         {
-            facingRight = false;
-            facingLeft = true;
+            facingRight = true;
+            facingLeft = false;
+            facingUp = false;
+            facingDown = false;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
 
-        } else if (facingUp && vertical < 0f)
+        } else if (horizontal == 0f && vertical < 0f)
         {
-            facing = false;
-            facingLeft = true;
+            facingRight = false;
+            facingLeft = false;
+            facingUp = false;
+            facingDown = true;
             Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
+            localScale.y *= -1f;
+            transform.localScale = localScale;
+
+        } else if (horizontal == 0f && vertical > 0f)
+        {
+            facingRight = false;
+            facingLeft = false;
+            facingUp = true;
+            facingDown = false;
+            Vector3 localScale = transform.localScale;
+            localScale.y *= -1f;
             transform.localScale = localScale;
 
         }
