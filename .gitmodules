@@ -1,0 +1,3 @@
+[submodule "Assets/UnityWolfyPackage"]
+	path = Assets/UnityWolfyPackage
+	url = git@github.com:Jinming-Zhang/UnityWolfyPackage.git
