@@ -34,7 +34,10 @@ public class Puppy : MonoBehaviour
         timeBeforePanicIncreace -= Time.deltaTime;
         if (timeBeforePanicIncreace <= 0)
         {
-            panicLevel++;
+            if (panicLevel < maxPanicLevel)
+            {
+                panicLevel++;
+            }
             timeBeforePanicIncreace = 30f;
         }
         Debug.Log("PanicLevel" + panicLevel);
