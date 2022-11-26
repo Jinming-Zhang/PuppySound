@@ -9,13 +9,15 @@ public class WalkableChecker : MonoBehaviour
     List<Transform> bounds;
     [SerializeField]
     LayerMask rayCheckLayer;
+    Vector3 offset;
 
-    public bool IsOnBoard()
+    public bool IsOnBoard(Vector3 offset)
     {
         bool isOnBoard = true;
+        this.offset = offset;
         foreach (Transform bound in bounds)
         {
-            RaycastHit[] hits = Physics.RaycastAll(bound.position, Vector3.forward * 2, rayCheckLayer);
+            RaycastHit[] hits = Physics.RaycastAll(bound.position + offset, Vector3.forward * 2, rayCheckLayer);
             bool hitSurface = false;
             foreach (RaycastHit hit in hits)
             {
@@ -33,12 +35,7 @@ public class WalkableChecker : MonoBehaviour
         foreach (Transform bound in bounds)
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(bound.position, bound.position + Vector3.forward * 2);
+            Gizmos.DrawLine(bound.position + offset, bound.position + offset + Vector3.forward * 2);
         }
-    }
-
-    private void Update()
-    {
-        Debug.Log(IsOnBoard());
     }
 }

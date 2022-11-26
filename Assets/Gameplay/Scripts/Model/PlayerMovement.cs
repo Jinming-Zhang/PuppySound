@@ -33,7 +33,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontal * speed, vertical * speed);
+        //rb.velocity = new Vector2(horizontal * speed, vertical * speed);
+        Vector3 pos = transform.position;
+        pos.x = pos.x + horizontal * speed * Time.fixedDeltaTime;
+        pos.y = pos.y + vertical * speed * Time.fixedDeltaTime;
+        if (IsPositionOnMaze(pos))
+        {
+            Debug.Log("on board");
+            rb.MovePosition(pos);
+        }
+        else
+        {
+            Debug.Log("off board");
+        }
+    }
+    bool IsPositionOnMaze(Vector3 position)
+    {
+        return checker.IsOnBoard(position - transform.position);
     }
 
     private void updateFacing()

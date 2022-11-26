@@ -459,12 +459,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300881425}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d433d0ef642dd7f488d6e6b006aa88dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   checker: {fileID: 1300881431}
+  checkerPos: {fileID: 0}
   rb: {fileID: 1300881428}
 --- !u!61 &1300881427
 BoxCollider2D:
