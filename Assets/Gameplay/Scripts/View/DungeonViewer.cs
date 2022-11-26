@@ -8,6 +8,8 @@ public class DungeonViewer : MonoBehaviour
     [SerializeField]
     GameObject mazeCellGraphic;
     [SerializeField]
+    GameObject mazeEdgeGraphic;
+    [SerializeField]
     Material cellMaterial;
     [SerializeField]
     Material edgeMaterial;
@@ -64,7 +66,7 @@ public class DungeonViewer : MonoBehaviour
                 cell.transform.parent = cellRoot;
                 mazeCells[r, c] = cell;
                 cell.transform.position = GetMazeLocation(new GridMazeLocation(r, c));
-                cell.GetComponentInChildren<MeshRenderer>().material = new Material(cellMaterial);
+                //cell.GetComponentInChildren<MeshRenderer>().material = new Material(cellMaterial);
             }
         }
     }
@@ -75,11 +77,43 @@ public class DungeonViewer : MonoBehaviour
         List<MazeEdge> mazeEdges = mazeModel.GetAllEdges();
         foreach (MazeEdge e in mazeEdges)
         {
-            edges.Add(AddEdgeGraphic(e).GetComponent<LineRenderer>());
+            //edges.Add(AddEdgeLineRendererGraphic(e).GetComponent<LineRenderer>());
+            AddEdgePlaneGraphic(e);
         }
     }
+    private GameObject AddEdgePlaneGraphic(MazeEdge e)
+    {
+        MazeLocation l1 = e.GetStartLocation();
+        MazeLocation l2 = e.GetEndLocation();
 
-    private GameObject AddEdgeGraphic(MazeEdge e)
+        Vector3 startPos = GetMazeLocation(l1);
+        Vector3 endPos = GetMazeLocation(l2);
+
+        GameObject edgeGo = Instantiate(mazeEdgeGraphic);
+        edgeGo.transform.parent = edgeRoot;
+
+        edgeGo.transform.position = startPos;
+        float dist = (endPos - startPos).magnitude;
+        // vertical edge, scale and move on y
+        if (l1.Col == l2.Col)
+        {
+            edgeGo.transform.localScale = new Vector3(.5f, dist, 1);
+            int sign = endPos.y - startPos.y < 0 ? -1 : 1;
+            edgeGo.transform.position = new Vector3(startPos.x, startPos.y + sign * (dist / 2.0f), startPos.z + 0.01f);
+        }
+        // horizontal edge, scale and move on x
+        else
+        {
+            edgeGo.transform.localScale = new Vector3(dist, .5f, 1);
+            int sign = endPos.x - startPos.x < 0 ? -1 : 1;
+            edgeGo.transform.position = new Vector3(startPos.x + sign * dist / 2.0f, startPos.y, startPos.z + 0.01f);
+        }
+
+        //edge.material = new Material(edgeMaterial);
+        return edgeGo;
+    }
+
+    private GameObject AddEdgeLineRendererGraphic(MazeEdge e)
     {
         GameObject edgeGo = new GameObject();
         edgeGo.transform.parent = edgeRoot;
@@ -94,17 +128,11 @@ public class DungeonViewer : MonoBehaviour
         Vector3 startPos = GetMazeLocation(start);
         Vector3 endPos = GetMazeLocation(dst);
 
-        ////edge.SetPosition(0, startCell.transform.position);
-        //edge.SetPosition(1, dstCell.transform.position);
         edge.SetPosition(0, startPos);
         edge.SetPosition(1, endPos);
 
-        edge.material = new Material(edgeMaterial);
+        //edge.material = new Material(edgeMaterial);
         return edgeGo;
-    }
-    (float, float) LocationToCoord(MazeLocation l)
-    {
-        return (l.Row * cellGap, l.Col * cellGap);
     }
 
     private Vector3 GetMazeLocation(MazeLocation location)
