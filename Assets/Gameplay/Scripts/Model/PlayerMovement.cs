@@ -31,17 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (facingLeft || facingRight)
-        {
-            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-        } else if (facingUp || facingDown)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, vertical * speed);
-        } else
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
-        }
-        
+        rb.velocity = new Vector2(horizontal * speed, vertical * speed);
     }
 
     private void updateFacing()
