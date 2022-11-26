@@ -24,7 +24,7 @@ public class DungeonController : MonoBehaviour
 
     public void ChangeNewMaze(int height, int width)
     {
-        mazeModel = new GridMazeModel(height, width, true);
+        mazeModel = new GridMazeModel(height, width);
         k = new KruskalAlgorithm();
 
         List<MazeEdge> leftoverEdges = k.Generate(mazeModel);

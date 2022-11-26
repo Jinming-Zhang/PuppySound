@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    WalkableChecker checker;
     private float horizontal;
     private float vertical;
     private float speed = 2f;
@@ -17,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -46,7 +48,8 @@ public class PlayerMovement : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
 
-        } else if (horizontal > 0f && vertical == 0f)
+        }
+        else if (horizontal > 0f && vertical == 0f)
         {
             facingRight = true;
             facingLeft = false;
@@ -56,7 +59,8 @@ public class PlayerMovement : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
 
-        } else if (horizontal == 0f && vertical < 0f)
+        }
+        else if (horizontal == 0f && vertical < 0f)
         {
             facingRight = false;
             facingLeft = false;
@@ -66,7 +70,8 @@ public class PlayerMovement : MonoBehaviour
             localScale.y *= -1f;
             transform.localScale = localScale;
 
-        } else if (horizontal == 0f && vertical > 0f)
+        }
+        else if (horizontal == 0f && vertical > 0f)
         {
             facingRight = false;
             facingLeft = false;
