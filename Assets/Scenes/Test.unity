@@ -312,8 +312,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1706381570}
-  - component: {fileID: 1706381569}
-  - component: {fileID: 1706381568}
+  - component: {fileID: 1706381572}
+  - component: {fileID: 1706381571}
   m_Layer: 0
   m_Name: MazeGenerator
   m_TagString: Untagged
@@ -321,44 +321,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1706381568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1706381567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef13981a77955e741a665f25e6077040, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mazeCellGraphic: {fileID: 5724232476550147022, guid: 06a841b7568e93840a59874d627beb49, type: 3}
-  cellMaterial: {fileID: 2100000, guid: d6a1477a231ec004591a1fa2874acfde, type: 2}
-  edgeMaterial: {fileID: 2100000, guid: 518b1e1c276dcd046bece2dc05910f8f, type: 2}
-  selectedEdgeColor: {r: 0.19339621, g: 0.72994655, b: 1, a: 1}
-  failedEdgeColor: {r: 0.8773585, g: 0.30210927, b: 0.30210927, a: 1}
-  cellGap: 2
-  edgeWidth: 0.5
-  cellRoot: {fileID: 158418588}
-  edgeRoot: {fileID: 1208205931}
---- !u!114 &1706381569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1706381567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4ec5260a3385c34d87e29995272b826, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewer: {fileID: 1706381568}
-  initialMazeHeight: 3
-  initialMazeWidth: 3
-  buttonSFX: {fileID: 0}
-  statusText: {fileID: 0}
 --- !u!4 &1706381570
 Transform:
   m_ObjectHideFlags: 0
@@ -376,3 +338,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1706381571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706381567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f82eb42db3df84a90fb7a054829206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mazeCellGraphic: {fileID: 5724232476550147022, guid: 06a841b7568e93840a59874d627beb49, type: 3}
+  cellMaterial: {fileID: 2100000, guid: d6a1477a231ec004591a1fa2874acfde, type: 2}
+  edgeMaterial: {fileID: 2100000, guid: 518b1e1c276dcd046bece2dc05910f8f, type: 2}
+  renderDepth: 0
+  cellGap: 2
+  edgeWidth: 0.5
+  cellRoot: {fileID: 158418588}
+  edgeRoot: {fileID: 1208205931}
+--- !u!114 &1706381572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706381567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ae844d886acd447b62d1ce81e23485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewer: {fileID: 1706381571}
+  initialMazeHeight: 3
+  initialMazeWidth: 4
+  interconnectivity: 0
