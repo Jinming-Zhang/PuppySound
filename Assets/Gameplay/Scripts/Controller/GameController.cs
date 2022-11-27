@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,17 @@ public class GameController : MonoBehaviour
 {
     private static GameController instance;
     public static GameController Instance => instance;
+    [Header("Maze Configuration")]
+    [SerializeField]
+    int mazeHeight;
+    [SerializeField]
+    int mazeWidth;
+    [SerializeField]
+    bool wrapped;
+    [SerializeField]
+    int interconnectivity;
+
+    [Header("Maze Components")]
     [SerializeField]
     private Player player;
 
@@ -20,11 +32,11 @@ public class GameController : MonoBehaviour
     private DungeonViewer viewer;
 
     [SerializeField]
-    private DungeonController dungeonController;
+    private Dungeon dungeon;
 
     private void Awake()
     {
-        if(instance && instance != this)
+        if (instance && instance != this)
         {
             Destroy(gameObject);
         }
@@ -35,14 +47,22 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        
+        InitializeDungeon();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitializeDungeon()
     {
-        
+        dungeon.InitializeMaze(mazeHeight, mazeWidth, wrapped, interconnectivity);
+        viewer.setMaze(dungeon.Maze);
+        MazeLocation playerL = dungeon.InitializePlayerMazeLocation();
+        MazeLocation puppyL = dungeon.InitializePuppyLocation();
+        MazeLocation monsterL = dungeon.InitializeMonsterLocation();
+
+        player = viewer.InstantiatePlayer(playerL).GetComponent<Player>();
+        puppy = viewer.InstantiatePuppy(puppyL).GetComponent<Puppy>();
+        monster = viewer.InstantiateMonster(monsterL).GetComponent<Monster>();
     }
+
 
     public void Calling()
     {
@@ -63,7 +83,7 @@ public class GameController : MonoBehaviour
 
     public int getDistance(MazeLocation start, MazeLocation mazeLocation)
     {
-        var path = new AStarSearch().ComputePath(dungeonController.MazeModel, start, mazeLocation);
+        var path = new AStarSearch().ComputePath(dungeon.Maze, start, mazeLocation);
         return path.Count - 1;
     }
 

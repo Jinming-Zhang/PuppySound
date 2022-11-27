@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class DungeonViewer : MonoBehaviour
 {
+    [Header("Prefabs")]
+    [SerializeField]
+    GameObject player;
+    [SerializeField]
+    GameObject puppy;
+    [SerializeField]
+    GameObject monster;
+
     [Header("Renderer Settings")]
     [SerializeField]
     GameObject mazeCellGraphic;
     [SerializeField]
     GameObject mazeEdgeGraphic;
-    [SerializeField]
     Material cellMaterial;
-    [SerializeField]
     Material edgeMaterial;
     [SerializeField]
     float renderDepth = 0;
@@ -30,7 +36,6 @@ public class DungeonViewer : MonoBehaviour
 
     // local members
     GameObject[,] mazeCells;
-    List<LineRenderer> edges;
 
     IMazeModel mazeModel;
 
@@ -65,29 +70,27 @@ public class DungeonViewer : MonoBehaviour
                 GameObject cell = Instantiate(mazeCellGraphic);
                 cell.transform.parent = cellRoot;
                 mazeCells[r, c] = cell;
-                cell.transform.position = GetMazeLocation(new GridMazeLocation(r, c));
-                //cell.GetComponentInChildren<MeshRenderer>().material = new Material(cellMaterial);
+                cell.transform.position = MazeLocationToWorldLocation(new GridMazeLocation(r, c));
             }
         }
     }
 
     void updateEdges()
     {
-        edges = new List<LineRenderer>();
         List<MazeEdge> mazeEdges = mazeModel.GetAllEdges();
         foreach (MazeEdge e in mazeEdges)
         {
-            //edges.Add(AddEdgeLineRendererGraphic(e).GetComponent<LineRenderer>());
             AddEdgePlaneGraphic(e);
         }
     }
+
     private GameObject AddEdgePlaneGraphic(MazeEdge e)
     {
         MazeLocation l1 = e.GetStartLocation();
         MazeLocation l2 = e.GetEndLocation();
 
-        Vector3 startPos = GetMazeLocation(l1);
-        Vector3 endPos = GetMazeLocation(l2);
+        Vector3 startPos = MazeLocationToWorldLocation(l1);
+        Vector3 endPos = MazeLocationToWorldLocation(l2);
 
         GameObject edgeGo = Instantiate(mazeEdgeGraphic);
         edgeGo.transform.parent = edgeRoot;
@@ -113,29 +116,34 @@ public class DungeonViewer : MonoBehaviour
         return edgeGo;
     }
 
-    private GameObject AddEdgeLineRendererGraphic(MazeEdge e)
+    public GameObject InstantiatePlayer(MazeLocation l)
     {
-        GameObject edgeGo = new GameObject();
-        edgeGo.transform.parent = edgeRoot;
-        edgeGo.transform.position = Vector3.zero;
+        GameObject p = Instantiate(player);
+        Vector3 worldPos = MazeLocationToWorldLocation(l);
+        worldPos.z = -1;
+        p.transform.position = worldPos;
 
-        LineRenderer edge = edgeGo.AddComponent<LineRenderer>();
-        edge.startWidth = edgeWidth;
-        edge.endWidth = edgeWidth;
+        return p;
+    }
+    public GameObject InstantiatePuppy(MazeLocation l)
+    {
+        GameObject p = Instantiate(puppy);
+        Vector3 worldPos = MazeLocationToWorldLocation(l);
+        worldPos.z = -1;
+        p.transform.position = worldPos;
+        return p;
 
-        MazeLocation start = e.GetStartLocation();
-        MazeLocation dst = e.GetEndLocation();
-        Vector3 startPos = GetMazeLocation(start);
-        Vector3 endPos = GetMazeLocation(dst);
-
-        edge.SetPosition(0, startPos);
-        edge.SetPosition(1, endPos);
-
-        //edge.material = new Material(edgeMaterial);
-        return edgeGo;
+    }
+    public GameObject InstantiateMonster(MazeLocation l)
+    {
+        GameObject m = Instantiate(monster);
+        Vector3 worldPos = MazeLocationToWorldLocation(l);
+        worldPos.z = -1;
+        m.transform.position = worldPos;
+        return m;
     }
 
-    private Vector3 GetMazeLocation(MazeLocation location)
+    public Vector3 MazeLocationToWorldLocation(MazeLocation location)
     {
         int row = location.Row;
         int col = location.Col;
@@ -150,9 +158,9 @@ public class DungeonViewer : MonoBehaviour
         int row = 0;
         int col = 0;
         float distance = float.MaxValue;
-        for(int r = 0; r<mazeModel.Height; ++r)
+        for (int r = 0; r < mazeModel.Height; ++r)
         {
-            for(int c =0; c<mazeModel.Width; ++c)
+            for (int c = 0; c < mazeModel.Width; ++c)
             {
                 GameObject cell = mazeCells[r, c];
                 float d = Vector3.Distance(location, cell.transform.position);
