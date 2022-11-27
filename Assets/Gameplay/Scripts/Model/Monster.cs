@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/**
- * PuppyBark presents
- */
-
-public class PuppyBark : MonoBehaviour
+public class Monster : MonoBehaviour
 {
-    // 
-    int panicLevel = 0;
+    [SerializeField]
+    private Player player;
+
+    [SerializeField]
+    private Puppy puppy;
+
+    [SerializeField]
+    private MazeLocation location;
+    public MazeLocation Location { get => location; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +26,5 @@ public class PuppyBark : MonoBehaviour
         
     }
 
-    void called()
-    {
-        
-    }
+
 }

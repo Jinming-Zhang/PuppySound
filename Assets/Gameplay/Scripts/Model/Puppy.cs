@@ -22,6 +22,19 @@ public class Puppy : MonoBehaviour
     private int comfortEffect = 2;
 
     private float timeBeforePanicIncreace = 30;
+
+    public int SoundStrength { get => soundStrength; }
+
+    [SerializeField]
+    private int soundStrength = 3;
+
+    private MazeLocation location;
+    public MazeLocation GetLocation { get => location; }
+    public void SetLocation (MazeLocation l) 
+    { 
+        location = l; 
+    }
+
     // Start is called before the first frame update.
     void Start()
     {
@@ -43,29 +56,28 @@ public class Puppy : MonoBehaviour
         Debug.Log("PanicLevel" + panicLevel);
     }
 
-    private bool isMonsterNear()
+    private bool isMonsterNear(MazeLocation monsterLocation)
     {
         // TODO: find a way to figure out if monster is near.
+        if (GameController.Instance.getDistance(monsterLocation, this.location) <= 1) {
+            return true;
+        }
         return false;
     }
 
     // This function is triggered when player calls for puppy.
-    void called()
+    public bool called()
     {
         // comforts the puppy.
         panicLevel -= comfortEffect;
 
+        // TODO
         // if monster nearby and not panic level 2, bark back;
-        if (!isMonsterNear() && panicLevel < panicThreshHold2)
+        if (!isMonsterNear(GameController.Instance.Monster.Location) && panicLevel < panicThreshHold2)
         {
-            bark();
+            return true;
         }
+        return false;
     }
 
-    // The puppy barks back after player calls.
-    void bark()
-    {
-        // TODO: notify player and monster the level of sound based on distance.
-        // move monster(s) accordingly.
-    }
 }

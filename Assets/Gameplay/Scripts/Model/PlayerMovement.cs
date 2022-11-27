@@ -22,16 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-
-        updateFacing();
-    }
-
-    private void FixedUpdate()
+    public void Move()
     {
         //rb.velocity = new Vector2(horizontal * speed, vertical * speed);
         Vector3 pos = transform.position;
@@ -47,6 +38,15 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("off board");
         }
     }
+
+    public void ReadInput()
+    {
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
+
+        updateFacing();
+    }
+
     bool IsPositionOnMaze(Vector3 position)
     {
         return checker.IsOnBoard(position - transform.position);

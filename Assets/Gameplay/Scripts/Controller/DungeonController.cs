@@ -5,6 +5,7 @@ using UnityEngine;
 public class DungeonController : MonoBehaviour
 {
     IMazeModel mazeModel;
+    public IMazeModel MazeModel { get => mazeModel; }
     [SerializeField]
     DungeonViewer viewer;
 

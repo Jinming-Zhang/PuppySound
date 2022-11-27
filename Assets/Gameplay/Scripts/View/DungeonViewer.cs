@@ -144,4 +144,26 @@ public class DungeonViewer : MonoBehaviour
         return new Vector3(worldX, worldY, renderDepth);
     }
 
+    public MazeLocation worldLocationToMazeLocation(Vector3 location)
+    {
+        // TODO: 
+        int row = 0;
+        int col = 0;
+        float distance = float.MaxValue;
+        for(int r = 0; r<mazeModel.Height; ++r)
+        {
+            for(int c =0; c<mazeModel.Width; ++c)
+            {
+                GameObject cell = mazeCells[r, c];
+                float d = Vector3.Distance(location, cell.transform.position);
+                if (d < distance)
+                {
+                    row = r;
+                    col = c;
+                    distance = d;
+                }
+            }
+        }
+        return new GridMazeLocation(row, col);
+    }
 }
