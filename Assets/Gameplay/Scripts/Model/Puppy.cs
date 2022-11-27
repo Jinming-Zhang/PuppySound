@@ -30,15 +30,15 @@ public class Puppy : MonoBehaviour
 
     private MazeLocation location;
     public MazeLocation GetLocation { get => location; }
-    public void SetLocation (MazeLocation l) 
-    { 
-        location = l; 
+    public void SetLocation(MazeLocation l)
+    {
+        location = l;
     }
 
     // Start is called before the first frame update.
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame.
@@ -59,7 +59,8 @@ public class Puppy : MonoBehaviour
     private bool isMonsterNear(MazeLocation monsterLocation)
     {
         // TODO: find a way to figure out if monster is near.
-        if (GameController.Instance.getDistance(monsterLocation, this.location) <= 1) {
+        if (GameController.Instance.getDistance(monsterLocation, this.location) <= 1)
+        {
             return true;
         }
         return false;
@@ -78,6 +79,10 @@ public class Puppy : MonoBehaviour
             return true;
         }
         return false;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"Collided with {other.gameObject.name}");
     }
 
 }

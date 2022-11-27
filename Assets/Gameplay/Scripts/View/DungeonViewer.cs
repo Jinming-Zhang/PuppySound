@@ -20,7 +20,8 @@ public class DungeonViewer : MonoBehaviour
     Material cellMaterial;
     Material edgeMaterial;
     [SerializeField]
-    float renderDepth = 0;
+    float mazeDepth = 0;
+    float characterDepth = -1;
 
     [Header("Display Settings")]
     [SerializeField]
@@ -120,7 +121,7 @@ public class DungeonViewer : MonoBehaviour
     {
         GameObject p = Instantiate(player);
         Vector3 worldPos = MazeLocationToWorldLocation(l);
-        worldPos.z = -1;
+        worldPos.z = characterDepth;
         p.transform.position = worldPos;
 
         return p;
@@ -129,7 +130,7 @@ public class DungeonViewer : MonoBehaviour
     {
         GameObject p = Instantiate(puppy);
         Vector3 worldPos = MazeLocationToWorldLocation(l);
-        worldPos.z = -1;
+        worldPos.z = characterDepth;
         p.transform.position = worldPos;
         return p;
 
@@ -138,7 +139,7 @@ public class DungeonViewer : MonoBehaviour
     {
         GameObject m = Instantiate(monster);
         Vector3 worldPos = MazeLocationToWorldLocation(l);
-        worldPos.z = -1;
+        worldPos.z = characterDepth;
         m.transform.position = worldPos;
         return m;
     }
@@ -149,7 +150,7 @@ public class DungeonViewer : MonoBehaviour
         int col = location.Col;
         float worldX = col * cellGap;
         float worldY = row * cellGap;
-        return new Vector3(worldX, worldY, renderDepth);
+        return new Vector3(worldX, worldY, mazeDepth);
     }
 
     public MazeLocation worldLocationToMazeLocation(Vector3 location)
