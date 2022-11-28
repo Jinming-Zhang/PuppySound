@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private DungeonViewer viewer;
+    public DungeonViewer Viewer => viewer;
 
     [SerializeField]
     private Dungeon dungeon;
@@ -59,8 +60,11 @@ public class GameController : MonoBehaviour
         MazeLocation monsterL = dungeon.InitializeMonsterLocation();
 
         player = viewer.InstantiatePlayer(playerL).GetComponent<Player>();
+
         puppy = viewer.InstantiatePuppy(puppyL).GetComponent<Puppy>();
+        puppy.Location = puppyL;
         monster = viewer.InstantiateMonster(monsterL).GetComponent<Monster>();
+        monster.Location = monsterL;
     }
 
 
@@ -68,17 +72,17 @@ public class GameController : MonoBehaviour
     {
         MazeLocation playerLocation = viewer.worldLocationToMazeLocation(player.transform.position);
         MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
-        MazeLocation puppyLocation = puppy.GetLocation;
+        MazeLocation puppyLocation = puppy.Location;
         int playerToMonster = Utility.calculateSoundStrength(playerLocation, monsterLocation, player.GetSoundStrength);
-        int puppyToMonster = Utility.calculateSoundStrength(puppyLocation, monsterLocation, player.GetSoundStrength);
 
         bool puppyBark = puppy.called();
         if (puppyBark)
         {
-            // monster is notified puppy bark.
+            int puppyToMonster = Utility.calculateSoundStrength(puppyLocation, monsterLocation, player.GetSoundStrength);
+            monster.OnPlayerCalling(playerToMonster, puppyToMonster, playerLocation, puppyLocation);
         }
 
-        // monster notified player sound.
+        monster.OnPlayerCalling(playerToMonster, -1, playerLocation, puppyLocation);
     }
 
     public int getDistance(MazeLocation start, MazeLocation mazeLocation)
@@ -87,4 +91,17 @@ public class GameController : MonoBehaviour
         return path.Count - 1;
     }
 
+    public Vector3 getNextLocation(MazeLocation start, MazeLocation end)
+    {
+        AStarSearch aStar = new AStarSearch();
+        var path =  aStar.ComputePath(dungeon.Maze, start, end);
+        if (path.Count > 1)
+        {
+            return viewer.MazeLocationToWorldLocation(path[1]);
+        }
+        else
+        {
+            return viewer.MazeLocationToWorldLocation(start);
+        }
+    }
 }

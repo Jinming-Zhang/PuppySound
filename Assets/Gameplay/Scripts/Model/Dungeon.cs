@@ -12,7 +12,17 @@ public class Dungeon : MonoBehaviour
     MazeLocation playerLocation;
     MazeLocation puppyLocation;
 
+    [SerializeField]
+    private int playerToPuppyMinLength = 7;
+    [SerializeField]
+    private int playerToPuppyMaxLength = 10;
 
+    [SerializeField]
+    private int monsterToPlayerLengthMax = 5;
+    [SerializeField]
+    private int monsterToPlayerLengthMin = 3;
+    [SerializeField]
+    private int monsterToPuppyLength = 3;
 
     public void InitializeMaze(int height, int width, bool wrapped, int interconnectivity)
     {
@@ -40,7 +50,8 @@ public class Dungeon : MonoBehaviour
         AStarSearch s = new AStarSearch();
         List<MazeLocation> allLocations = mazeModel.GetAllLocations();
 
-        var candidates = allLocations.FindAll(l => s.ComputePath(Maze, l, playerLocation).Count > 5);
+        var candidates = allLocations.FindAll(l => s.ComputePath(Maze, l, playerLocation).Count >= playerToPuppyMinLength
+        && s.ComputePath(Maze, l, playerLocation).Count <= playerToPuppyMaxLength);
         if (candidates.Count > 0)
         {
             puppyLocation = candidates[Random.Range(0, candidates.Count)];
@@ -58,7 +69,9 @@ public class Dungeon : MonoBehaviour
         AStarSearch s = new AStarSearch();
         List<MazeLocation> allLocations = mazeModel.GetAllLocations();
 
-        var candidates = allLocations.FindAll(l => s.ComputePath(Maze, l, playerLocation).Count > 5 && s.ComputePath(Maze, l, puppyLocation).Count > 5);
+        var candidates = allLocations.FindAll(l => s.ComputePath(Maze, l, playerLocation).Count >= monsterToPlayerLengthMin
+        && s.ComputePath(Maze, l, playerLocation).Count <= monsterToPlayerLengthMax
+        && s.ComputePath(Maze, l, puppyLocation).Count > monsterToPuppyLength);
         if (candidates.Count > 0)
         {
             return candidates[Random.Range(0, candidates.Count)];

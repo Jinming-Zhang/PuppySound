@@ -155,7 +155,6 @@ public class DungeonViewer : MonoBehaviour
 
     public MazeLocation worldLocationToMazeLocation(Vector3 location)
     {
-        // TODO: 
         int row = 0;
         int col = 0;
         float distance = float.MaxValue;

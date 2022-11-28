@@ -29,7 +29,7 @@ public class Puppy : MonoBehaviour
     private int soundStrength = 3;
 
     private MazeLocation location;
-    public MazeLocation GetLocation { get => location; }
+    public MazeLocation Location { get => location; set => location = value; }
     public void SetLocation(MazeLocation l)
     {
         location = l;
@@ -53,12 +53,11 @@ public class Puppy : MonoBehaviour
             }
             timeBeforePanicIncreace = 30f;
         }
-        Debug.Log("PanicLevel" + panicLevel);
+        // Debug.Log("PanicLevel" + panicLevel);
     }
 
     private bool isMonsterNear(MazeLocation monsterLocation)
     {
-        // TODO: find a way to figure out if monster is near.
         if (GameController.Instance.getDistance(monsterLocation, this.location) <= 1)
         {
             return true;
@@ -72,8 +71,6 @@ public class Puppy : MonoBehaviour
         // comforts the puppy.
         panicLevel -= comfortEffect;
 
-        // TODO
-        // if monster nearby and not panic level 2, bark back;
         if (!isMonsterNear(GameController.Instance.Monster.Location) && panicLevel < panicThreshHold2)
         {
             return true;
