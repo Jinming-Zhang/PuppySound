@@ -1,12 +1,21 @@
+using GameCore.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WolfAudioSystem;
 
 public class GameController : MonoBehaviour
 {
     private static GameController instance;
     public static GameController Instance => instance;
+    [Header("Services")]
+    [SerializeField]
+    List<GameService> services;
+
+    [Header("Audio")]
+    public GameAudioData audioData;
+
     [Header("Maze Configuration")]
     [SerializeField]
     int mazeHeight;
@@ -20,10 +29,8 @@ public class GameController : MonoBehaviour
     [Header("Maze Components")]
     [SerializeField]
     private Player player;
-
     [SerializeField]
     private Puppy puppy;
-
     [SerializeField]
     private Monster monster;
     public Monster Monster { get => monster; }
@@ -48,7 +55,24 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        InitializeService();
         InitializeDungeon();
+        if (AudioSystem.Instance)
+        {
+            AudioSystem.Instance.TransitionBGMQuick(audioData.dungeonBGMClip);
+        }
+    }
+
+    void InitializeService()
+    {
+        if (services != null)
+        {
+            foreach (GameService service in services)
+            {
+                ServiceLocator.RegisterService(service);
+            }
+        }
+
     }
 
     private void InitializeDungeon()
@@ -94,7 +118,7 @@ public class GameController : MonoBehaviour
     public Vector3 getNextLocation(MazeLocation start, MazeLocation end)
     {
         AStarSearch aStar = new AStarSearch();
-        var path =  aStar.ComputePath(dungeon.Maze, start, end);
+        var path = aStar.ComputePath(dungeon.Maze, start, end);
         if (path.Count > 1)
         {
             return viewer.MazeLocationToWorldLocation(path[1]);

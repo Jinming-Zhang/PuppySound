@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286668a455d711347aaaaef4fd7ba365, type: 3}
+  m_Name: Game Audio Data
+  m_EditorClassIdentifier: 
+  introBgmClip: {fileID: 0}
+  dungeonBGMClip: {fileID: 8300000, guid: 5dc33f5df5c3ba2468b0c2b28f10a8ec, type: 3}
+  puppyReplyClip: {fileID: 8300000, guid: 16581220f4b13fc42a2550520205832f, type: 3}
+  monsterGrowlClip: {fileID: 8300000, guid: f5c27777681170d40a4ca6519fbdde8b, type: 3}
