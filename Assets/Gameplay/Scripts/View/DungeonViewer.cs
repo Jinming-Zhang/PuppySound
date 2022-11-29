@@ -14,13 +14,14 @@ public class DungeonViewer : MonoBehaviour
 
     [Header("Renderer Settings")]
     [SerializeField]
-    GameObject mazeCellGraphic;
+    MazeGraphics mazeCellGraphic;
     [SerializeField]
-    GameObject mazeEdgeGraphic;
+    MazeGraphics mazeEdgeGraphic;
     Material cellMaterial;
     Material edgeMaterial;
     [SerializeField]
     float mazeDepth = 0;
+    [SerializeField]
     float characterDepth = -1;
 
     [Header("Display Settings")]
@@ -36,7 +37,8 @@ public class DungeonViewer : MonoBehaviour
     Transform edgeRoot;
 
     // local members
-    GameObject[,] mazeCells;
+    MazeGraphics[,] mazeCells;
+    List<MazeGraphics> mazeEdgeGraphics;
 
     IMazeModel mazeModel;
 
@@ -62,13 +64,13 @@ public class DungeonViewer : MonoBehaviour
 
     private void updateCells()
     {
-        mazeCells = new GameObject[mazeModel.Height, mazeModel.Width];
+        mazeCells = new MazeGraphics[mazeModel.Height, mazeModel.Width];
         for (int r = 0; r < mazeModel.Height; ++r)
         {
             for (int c = 0; c < mazeModel.Width; ++c)
             {
                 // cells
-                GameObject cell = Instantiate(mazeCellGraphic);
+                MazeGraphics cell = Instantiate(mazeCellGraphic);
                 cell.transform.parent = cellRoot;
                 mazeCells[r, c] = cell;
                 cell.transform.position = MazeLocationToWorldLocation(new GridMazeLocation(r, c));
@@ -79,13 +81,14 @@ public class DungeonViewer : MonoBehaviour
     void updateEdges()
     {
         List<MazeEdge> mazeEdges = mazeModel.GetAllEdges();
+        mazeEdgeGraphics = new List<MazeGraphics>();
         foreach (MazeEdge e in mazeEdges)
         {
-            AddEdgePlaneGraphic(e);
+            mazeEdgeGraphics.Add(AddEdgePlaneGraphic(e));
         }
     }
 
-    private GameObject AddEdgePlaneGraphic(MazeEdge e)
+    private MazeGraphics AddEdgePlaneGraphic(MazeEdge e)
     {
         MazeLocation l1 = e.GetStartLocation();
         MazeLocation l2 = e.GetEndLocation();
@@ -93,7 +96,7 @@ public class DungeonViewer : MonoBehaviour
         Vector3 startPos = MazeLocationToWorldLocation(l1);
         Vector3 endPos = MazeLocationToWorldLocation(l2);
 
-        GameObject edgeGo = Instantiate(mazeEdgeGraphic);
+        MazeGraphics edgeGo = Instantiate(mazeEdgeGraphic);
         edgeGo.transform.parent = edgeRoot;
 
         edgeGo.transform.position = startPos;
@@ -143,6 +146,36 @@ public class DungeonViewer : MonoBehaviour
         m.transform.position = worldPos;
         return m;
     }
+    public void UpdateGraphicsByPlayerPosition(List<MazeGraphics> playerOn)
+    {
+        // loop through cell graphics
+        for (int r = 0; r < mazeModel.Height; r++)
+        {
+            for (int c = 0; c < mazeModel.Width; c++)
+            {
+                if (playerOn.Contains(mazeCells[r, c]))
+                {
+                    mazeCells[r, c].Show();
+                }
+                else
+                {
+                    mazeCells[r, c].Hide();
+                }
+            }
+        }
+        // loop through edge graphics
+        mazeEdgeGraphics.ForEach(g =>
+        {
+            if (playerOn.Contains(g))
+            {
+                g.Show();
+            }
+            else
+            {
+                g.Hide();
+            }
+        });
+    }
 
     public Vector3 MazeLocationToWorldLocation(MazeLocation location)
     {
@@ -162,7 +195,7 @@ public class DungeonViewer : MonoBehaviour
         {
             for (int c = 0; c < mazeModel.Width; ++c)
             {
-                GameObject cell = mazeCells[r, c];
+                MazeGraphics cell = mazeCells[r, c];
                 float d = Vector3.Distance(location, cell.transform.position);
                 if (d < distance)
                 {

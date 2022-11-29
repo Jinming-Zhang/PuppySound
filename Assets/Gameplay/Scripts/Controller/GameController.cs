@@ -62,6 +62,10 @@ public class GameController : MonoBehaviour
             AudioSystem.Instance.TransitionBGMQuick(audioData.dungeonBGMClip);
         }
     }
+    private void Update()
+    {
+        viewer.UpdateGraphicsByPlayerPosition(player.GetComponent<WalkableChecker>().SteppingOn);
+    }
 
     void InitializeService()
     {

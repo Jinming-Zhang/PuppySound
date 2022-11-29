@@ -849,9 +849,10 @@ MonoBehaviour:
   player: {fileID: 7838179732011807801, guid: 7ff1f907be6db6441b787aea5c45a056, type: 3}
   puppy: {fileID: 3541389780368720846, guid: cfaa21f152597384eabb9b49aa6cd847, type: 3}
   monster: {fileID: 4187503265663135653, guid: f0a226b16453645478cc84431e9b8e01, type: 3}
-  mazeCellGraphic: {fileID: 8286173473226362856, guid: 791552be22658a6428fb1a28e38e8991, type: 3}
-  mazeEdgeGraphic: {fileID: 8286173473226362856, guid: 1ef394f7fc9de5042855ff345129db6f, type: 3}
+  mazeCellGraphic: {fileID: 4888752547587278454, guid: 791552be22658a6428fb1a28e38e8991, type: 3}
+  mazeEdgeGraphic: {fileID: -5783917520385680999, guid: 1ef394f7fc9de5042855ff345129db6f, type: 3}
   mazeDepth: 0
+  characterDepth: -1
   cellGap: 2
   edgeWidth: 0.5
   cellRoot: {fileID: 551401888}

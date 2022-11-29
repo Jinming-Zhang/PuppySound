@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 7214387879767752231}
   - component: {fileID: 4516369523261549348}
   - component: {fileID: 4583144288237754711}
+  - component: {fileID: 4888752547587278454}
   m_Layer: 6
   m_Name: 'Maze Cell '
   m_TagString: MazeSurface
@@ -147,3 +148,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.022989871}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4888752547587278454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8286173473226362856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9edd9367ca829a4da2e87e1ef2c544a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphic: {fileID: 7718753006695457712}

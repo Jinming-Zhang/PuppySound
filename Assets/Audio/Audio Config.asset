@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e18282f5384c21d40b4ec84be7399099, type: 3}
   m_Name: Audio Config
   m_EditorClassIdentifier: 
-  overAllVolume: 0.423
-  musicVolume: 0.397
+  overAllVolume: 1
+  musicVolume: 1
   sfxVolume: 0.428
   TransitionDuration: 3
