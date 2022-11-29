@@ -24,7 +24,7 @@ public class WalkableChecker : MonoBehaviour
             bool hits = Physics.Raycast(bound.position + offset, Vector3.forward * 2, out hit, rayCheckLayer);
             bool hitSurface = false;
             // top
-            if (hit.transform.CompareTag("MazeSurface"))
+            if (hits && hit.transform.CompareTag("MazeSurface"))
             {
                 hitSurface = true;
             }
