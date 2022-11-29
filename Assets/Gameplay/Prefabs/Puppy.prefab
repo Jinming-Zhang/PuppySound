@@ -102,7 +102,7 @@ MonoBehaviour:
   panicThreshHold1: 5
   panicThreshHold2: 8
   comfortEffect: 2
-  soundStrength: 3
+  soundStrength: 8
 --- !u!65 &7260262587572496789
 BoxCollider:
   m_ObjectHideFlags: 0

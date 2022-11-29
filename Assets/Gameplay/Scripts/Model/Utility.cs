@@ -5,10 +5,16 @@ using UnityEngine;
 public class Utility
 {
 
-
-    public static int calculateSoundStrength(MazeLocation start, MazeLocation end, int strength)
+    // calculate the sound strength from one player to another based on the sound strength.
+    public static int calculateSoundStrength(IMazeModel Maze, MazeLocation start, MazeLocation end, int strength)
     {
-
-        return 0;
+        AStarSearch aStar = new AStarSearch();
+        var path = aStar.ComputePath(Maze, start, end);
+        int soundStrength = strength - path.Count;
+        if (soundStrength <= 0)
+        {
+            soundStrength = 1;
+        }
+        return soundStrength;
     }
 }

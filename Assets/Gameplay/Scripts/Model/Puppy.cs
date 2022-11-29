@@ -26,7 +26,7 @@ public class Puppy : MonoBehaviour
     public int SoundStrength { get => soundStrength; }
 
     [SerializeField]
-    private int soundStrength = 3;
+    private int soundStrength = 8;
 
     private MazeLocation location;
     public MazeLocation Location { get => location; set => location = value; }

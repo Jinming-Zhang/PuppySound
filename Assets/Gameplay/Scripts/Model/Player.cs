@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     private Monster monster;
 
     [SerializeField]
-    private int soundStrength = 3;
+    private int soundStrength = 5;
     public int GetSoundStrength { get => soundStrength; }
 
     void Start()

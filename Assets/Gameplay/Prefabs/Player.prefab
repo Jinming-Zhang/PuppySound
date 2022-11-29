@@ -515,7 +515,7 @@ MonoBehaviour:
   playerMovement: {fileID: 7838179732011807802}
   puppy: {fileID: 0}
   monster: {fileID: 0}
-  soundStrength: 3
+  soundStrength: 5
 --- !u!1 &7838179732875154190
 GameObject:
   m_ObjectHideFlags: 0

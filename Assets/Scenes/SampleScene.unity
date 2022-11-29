@@ -928,6 +928,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 215010998, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_text
+      value: Jimmy God
+      objectReference: {fileID: 0}
     - target: {fileID: 607480572, guid: 10d626edc18a334438d59276750bb95b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

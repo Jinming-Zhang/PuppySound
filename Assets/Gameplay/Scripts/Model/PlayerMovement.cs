@@ -30,12 +30,12 @@ public class PlayerMovement : MonoBehaviour
         pos.y = pos.y + vertical * speed * Time.fixedDeltaTime;
         if (IsPositionOnMaze(pos))
         {
-            Debug.Log("on board");
+            // Debug.Log("on board");
             rb.MovePosition(pos);
         }
         else
         {
-            Debug.Log("off board");
+            // Debug.Log("off board");
         }
     }
 
