@@ -8,6 +8,9 @@ public class DialoguePanel : MonoBehaviour
     [SerializeField]
     List<Sprite> sprites;
     private int spriteIndex = 0;
+
+    private bool inProcess = false;
+
     // Start is called before the first frame update
 
     [SerializeField]
@@ -43,14 +46,19 @@ public class DialoguePanel : MonoBehaviour
             {
                 gameObject.SetActive(false);
                 GameController.Instance.Calling();
+                this.inProcess = false;
             }
         }
     }
 
     public void callingEvent()
     {
-        setText();
-        setIcon();
+        if (!this.inProcess)
+        {
+            setText();
+            setIcon();
+            this.inProcess = true;
+        }
     }
 
     private void setText()

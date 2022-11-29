@@ -45,8 +45,6 @@ public class Monster : MonoBehaviour
     public void OnPlayerCalling(int playerSoundStrength, int puppySoundStrength, MazeLocation playerLocation, MazeLocation puppyLocation)
     {
         this.location = GameController.Instance.Viewer.worldLocationToMazeLocation(transform.position);
-        Debug.Log(playerSoundStrength);
-        Debug.Log(puppySoundStrength);
         if (playerSoundStrength > puppySoundStrength)
         {
             // move towards player.
