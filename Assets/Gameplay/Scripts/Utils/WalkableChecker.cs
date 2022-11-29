@@ -20,10 +20,10 @@ public class WalkableChecker : MonoBehaviour
         steppingOn.Clear();
         foreach (Transform bound in bounds)
         {
-            RaycastHit[] hits = Physics.RaycastAll(bound.position + offset, Vector3.forward * 2, rayCheckLayer);
+            RaycastHit hit;
+            bool hits = Physics.Raycast(bound.position + offset, Vector3.forward * 2, out hit, rayCheckLayer);
             bool hitSurface = false;
             // top
-            RaycastHit hit = hits[0];
             if (hit.transform.CompareTag("MazeSurface"))
             {
                 hitSurface = true;
@@ -33,22 +33,11 @@ public class WalkableChecker : MonoBehaviour
             {
                 steppingOn.Add(s);
             }
-            //foreach (RaycastHit hit in hits)
-            //{
-            //    if (hit.transform.CompareTag("MazeSurface"))
-            //    {
-            //        hitSurface = true;
-            //    }
-            //    MazeGraphics s = hit.transform.GetComponent<MazeGraphics>();
-            //    if (s && !steppingOn.Contains(s))
-            //    {
-            //        steppingOn.Add(s);
-            //    }
-            //}
             isOnBoard = isOnBoard && hitSurface;
         }
         return isOnBoard;
     }
+
     private void OnDrawGizmos()
     {
         foreach (Transform bound in bounds)
