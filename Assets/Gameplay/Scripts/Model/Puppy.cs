@@ -35,10 +35,12 @@ public class Puppy : MonoBehaviour
         location = l;
     }
 
+    public PanicBar panicBar;
+
     // Start is called before the first frame update.
     void Start()
     {
-
+        panicBar.SetMaxHealth(this.maxPanicLevel);
     }
 
     // Update is called once per frame.
@@ -50,6 +52,7 @@ public class Puppy : MonoBehaviour
             if (panicLevel < maxPanicLevel)
             {
                 panicLevel++;
+                panicBar.SetPanicLevel(this.panicLevel);
             }
             timeBeforePanicIncreace = 30f;
         }
@@ -70,6 +73,7 @@ public class Puppy : MonoBehaviour
     {
         // comforts the puppy.
         panicLevel -= comfortEffect;
+        panicBar.SetPanicLevel(this.panicLevel);
 
         if (!isMonsterNear(GameController.Instance.Monster.Location) && panicLevel < panicThreshHold2)
         {

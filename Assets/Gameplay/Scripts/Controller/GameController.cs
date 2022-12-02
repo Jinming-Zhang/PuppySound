@@ -42,6 +42,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Dungeon dungeon;
 
+    public PanicBar panicBar;
+
     private void Awake()
     {
         if (instance && instance != this)
@@ -91,6 +93,7 @@ public class GameController : MonoBehaviour
 
         puppy = viewer.InstantiatePuppy(puppyL).GetComponent<Puppy>();
         puppy.Location = puppyL;
+        puppy.panicBar = this.panicBar;
         monster = viewer.InstantiateMonster(monsterL).GetComponent<Monster>();
         monster.Location = monsterL;
     }
