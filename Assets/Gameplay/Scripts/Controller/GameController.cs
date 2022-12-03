@@ -68,6 +68,10 @@ public class GameController : MonoBehaviour
     {
         viewer.UpdateGraphicsByPlayerPosition(player.GetComponent<WalkableChecker>().SteppingOn);
     }
+    private void FixedUpdate()
+    {
+        viewer.UpdateMazeCellCollidersBasedOnPlayerPosition(player.transform.position);
+    }
 
     void InitializeService()
     {
@@ -104,15 +108,16 @@ public class GameController : MonoBehaviour
         MazeLocation playerLocation = viewer.worldLocationToMazeLocation(player.transform.position);
         MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
         MazeLocation puppyLocation = puppy.Location;
-        int playerToMonster = Utility.calculateSoundStrength(dungeon.Maze,playerLocation, monsterLocation, player.GetSoundStrength);
+        int playerToMonster = Utility.calculateSoundStrength(dungeon.Maze, playerLocation, monsterLocation, player.GetSoundStrength);
 
         // if puppy barks, lead monster to the closest one.
         bool puppyBark = puppy.called();
         if (puppyBark)
         {
-            int puppyToMonster = Utility.calculateSoundStrength(dungeon.Maze,puppyLocation, monsterLocation, player.GetSoundStrength);
+            int puppyToMonster = Utility.calculateSoundStrength(dungeon.Maze, puppyLocation, monsterLocation, player.GetSoundStrength);
             monster.OnPlayerCalling(playerToMonster, puppyToMonster, playerLocation, puppyLocation);
-        } else
+        }
+        else
         {
             // otherwise leads the monster to player
             monster.OnPlayerCalling(playerToMonster, -1, playerLocation, puppyLocation);

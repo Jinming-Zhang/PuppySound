@@ -161,4 +161,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphic: {fileID: 7718753006695457712}
+  clder: {fileID: 4583144288237754711}
   transitionSpeed: 0.5

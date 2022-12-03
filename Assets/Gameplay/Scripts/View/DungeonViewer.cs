@@ -18,7 +18,6 @@ public class DungeonViewer : MonoBehaviour
     [SerializeField]
     MazeGraphics mazeEdgeGraphic;
     Material cellMaterial;
-    Material edgeMaterial;
     [SerializeField]
     float mazeDepth = 0;
     [SerializeField]
@@ -26,15 +25,11 @@ public class DungeonViewer : MonoBehaviour
 
     [Header("Display Settings")]
     [SerializeField]
-    float cellGap = 2f;
-    [SerializeField]
-    float edgeWidth = .5f;
+    float cellScale = 1f;
 
     [Header("Child Management")]
     [SerializeField]
     Transform cellRoot;
-    [SerializeField]
-    Transform edgeRoot;
 
     // local members
     MazeGraphics[,] mazeCells;
@@ -54,12 +49,7 @@ public class DungeonViewer : MonoBehaviour
         {
             Destroy(c.gameObject);
         }
-        foreach (Transform e in edgeRoot)
-        {
-            Destroy(e.gameObject);
-        }
         updateCells();
-        updateEdges();
     }
 
     private void updateCells()
@@ -71,55 +61,14 @@ public class DungeonViewer : MonoBehaviour
             {
                 // cells
                 MazeGraphics cell = Instantiate(mazeCellGraphic);
+                cell.transform.localScale = Vector3.one * cellScale;
                 cell.transform.parent = cellRoot;
                 mazeCells[r, c] = cell;
+                cell.gameObject.name = $"Maze Cell [{r},{c}]";
                 cell.transform.position = MazeLocationToWorldLocation(new GridMazeLocation(r, c));
             }
         }
     }
-
-    void updateEdges()
-    {
-        List<MazeEdge> mazeEdges = mazeModel.GetAllEdges();
-        mazeEdgeGraphics = new List<MazeGraphics>();
-        foreach (MazeEdge e in mazeEdges)
-        {
-            mazeEdgeGraphics.Add(AddEdgePlaneGraphic(e));
-        }
-    }
-
-    private MazeGraphics AddEdgePlaneGraphic(MazeEdge e)
-    {
-        MazeLocation l1 = e.GetStartLocation();
-        MazeLocation l2 = e.GetEndLocation();
-
-        Vector3 startPos = MazeLocationToWorldLocation(l1);
-        Vector3 endPos = MazeLocationToWorldLocation(l2);
-
-        MazeGraphics edgeGo = Instantiate(mazeEdgeGraphic);
-        edgeGo.transform.parent = edgeRoot;
-
-        edgeGo.transform.position = startPos;
-        float dist = (endPos - startPos).magnitude;
-        // vertical edge, scale and move on y
-        if (l1.Col == l2.Col)
-        {
-            edgeGo.transform.localScale = new Vector3(.5f, dist, 1);
-            int sign = endPos.y - startPos.y < 0 ? -1 : 1;
-            edgeGo.transform.position = new Vector3(startPos.x, startPos.y + sign * (dist / 2.0f), startPos.z + 0.01f);
-        }
-        // horizontal edge, scale and move on x
-        else
-        {
-            edgeGo.transform.localScale = new Vector3(dist, .5f, 1);
-            int sign = endPos.x - startPos.x < 0 ? -1 : 1;
-            edgeGo.transform.position = new Vector3(startPos.x + sign * dist / 2.0f, startPos.y, startPos.z + 0.01f);
-        }
-
-        //edge.material = new Material(edgeMaterial);
-        return edgeGo;
-    }
-
     public GameObject InstantiatePlayer(MazeLocation l)
     {
         GameObject p = Instantiate(player);
@@ -163,26 +112,34 @@ public class DungeonViewer : MonoBehaviour
                 }
             }
         }
-        // loop through edge graphics
-        mazeEdgeGraphics.ForEach(g =>
+    }
+    public void UpdateMazeCellCollidersBasedOnPlayerPosition(Vector3 worldPos)
+    {
+        MazeLocation mazeLoc = worldLocationToMazeLocation(worldPos);
+        List<MazeLocation> availableDsts = mazeModel.AvailableDirections(mazeLoc).ConvertAll(info => info.Distination);
+        for (int r = 0; r < mazeModel.Height; r++)
         {
-            if (playerOn.Contains(g))
+            for (int c = 0; c < mazeModel.Width; c++)
             {
-                g.Show();
+                if (availableDsts.Contains(new GridMazeLocation(r, c)))
+                {
+                    mazeCells[r, c].SetCollider(true);
+                }
+                else
+                {
+                    mazeCells[r, c].SetCollider(false);
+                }
             }
-            else
-            {
-                g.Hide();
-            }
-        });
+        }
+        mazeCells[mazeLoc.Row, mazeLoc.Col].SetCollider(true);
     }
 
     public Vector3 MazeLocationToWorldLocation(MazeLocation location)
     {
         int row = location.Row;
         int col = location.Col;
-        float worldX = col * cellGap;
-        float worldY = row * cellGap;
+        float worldX = col * cellScale;
+        float worldY = row * cellScale;
         return new Vector3(worldX, worldY, mazeDepth);
     }
 

@@ -174,7 +174,7 @@ MonoBehaviour:
   mazeHeight: 8
   mazeWidth: 8
   wrapped: 1
-  interconnectivity: 7
+  interconnectivity: 1
   player: {fileID: 0}
   puppy: {fileID: 0}
   monster: {fileID: 0}
@@ -865,10 +865,8 @@ MonoBehaviour:
   mazeEdgeGraphic: {fileID: -5783917520385680999, guid: 1ef394f7fc9de5042855ff345129db6f, type: 3}
   mazeDepth: 0
   characterDepth: -1
-  cellGap: 2
-  edgeWidth: 0.5
+  cellScale: 2
   cellRoot: {fileID: 551401888}
-  edgeRoot: {fileID: 1107730515}
 --- !u!4 &1036766424
 Transform:
   m_ObjectHideFlags: 0
