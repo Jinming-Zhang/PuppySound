@@ -32,10 +32,10 @@ public class CallButton : MonoBehaviour
     }
     IEnumerator PushNotificationsCR()
     {
-        nPanel.PushNotification(playerTexts[Random.Range(0, playerTexts.Count)]);
+        nPanel.PushNotification(new NotificationInfo(playerTexts[Random.Range(0, playerTexts.Count)]));
         yield return new WaitForSeconds(1f);
-        nPanel.PushNotification(dogTexts[Random.Range(0, dogTexts.Count)]);
+        nPanel.PushNotification(new NotificationInfo(dogTexts[Random.Range(0, dogTexts.Count)]));
         yield return new WaitForSeconds(1f);
-        nPanel.PushNotification(monsterText);
+        nPanel.PushNotification(new NotificationInfo(monsterText));
     }
 }
