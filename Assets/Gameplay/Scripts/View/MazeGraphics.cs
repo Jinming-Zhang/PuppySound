@@ -8,6 +8,13 @@ public abstract class MazeGraphics : MonoBehaviour
     SpriteRenderer graphic;
     [SerializeField]
     Collider clder;
+
+    [Header("Echos")]
+    [SerializeField]
+    List<Transform> tipLocations;
+    [SerializeField]
+    GameObject echosTemplate;
+
     float targetAlpha = 1;
     public abstract float TransitionSpeed { get; }
     private void Update()
