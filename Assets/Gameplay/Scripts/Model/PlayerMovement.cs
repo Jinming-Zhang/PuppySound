@@ -39,11 +39,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void ReadInput()
+    public void ReadInput(float speed)
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-
+        this.speed = speed;
         updateFacing();
     }
 

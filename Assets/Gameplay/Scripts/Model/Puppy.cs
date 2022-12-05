@@ -21,7 +21,7 @@ public class Puppy : MonoBehaviour
     [SerializeField]
     private int comfortEffect = 2;
 
-    private float timeBeforePanicIncreace = 30;
+    private float timeBeforePanicIncreace = 20;
 
     public int SoundStrength { get => soundStrength; }
 
@@ -54,14 +54,14 @@ public class Puppy : MonoBehaviour
                 panicLevel++;
                 panicBar.SetPanicLevel(this.panicLevel);
             }
-            timeBeforePanicIncreace = 30f;
+            timeBeforePanicIncreace = 20f;
         }
         // Debug.Log("PanicLevel" + panicLevel);
     }
 
     private bool isMonsterNear(MazeLocation monsterLocation)
     {
-        if (GameController.Instance.getDistance(monsterLocation, this.location) <= 1)
+        if (GameController.Instance.GetDistance(monsterLocation, this.location) <= 1)
         {
             return true;
         }

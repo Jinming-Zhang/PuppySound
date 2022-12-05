@@ -48,11 +48,11 @@ public class Monster : MonoBehaviour
         if (playerSoundStrength > puppySoundStrength)
         {
             // move towards player.
-            targetLocation = GameController.Instance.getNextLocation(this.location, playerLocation);
+            targetLocation = GameController.Instance.GetNextLocation(this.location, playerLocation);
         } else
         {
             // move towards puppy.
-            targetLocation = GameController.Instance.getNextLocation(this.location, puppyLocation);
+            targetLocation = GameController.Instance.GetNextLocation(this.location, puppyLocation);
         }
     }
 

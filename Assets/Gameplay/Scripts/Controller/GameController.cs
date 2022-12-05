@@ -42,7 +42,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Dungeon dungeon;
 
-    public PanicBar panicBar;
+    public PanicBar puppyPanicBar;
+    public PanicBar playerPanicBar;
 
     private void Awake()
     {
@@ -94,10 +95,11 @@ public class GameController : MonoBehaviour
         MazeLocation monsterL = dungeon.InitializeMonsterLocation();
 
         player = viewer.InstantiatePlayer(playerL).GetComponent<Player>();
+        player.panicBar = this.playerPanicBar;
 
         puppy = viewer.InstantiatePuppy(puppyL).GetComponent<Puppy>();
         puppy.Location = puppyL;
-        puppy.panicBar = this.panicBar;
+        puppy.panicBar = this.puppyPanicBar;
         monster = viewer.InstantiateMonster(monsterL).GetComponent<Monster>();
         monster.Location = monsterL;
     }
@@ -125,13 +127,13 @@ public class GameController : MonoBehaviour
 
     }
 
-    public int getDistance(MazeLocation start, MazeLocation mazeLocation)
+    public int GetDistance(MazeLocation start, MazeLocation mazeLocation)
     {
         var path = new AStarSearch().ComputePath(dungeon.Maze, start, mazeLocation);
         return path.Count - 1;
     }
 
-    public Vector3 getNextLocation(MazeLocation start, MazeLocation end)
+    public Vector3 GetNextLocation(MazeLocation start, MazeLocation end)
     {
         AStarSearch aStar = new AStarSearch();
         var path = aStar.ComputePath(dungeon.Maze, start, end);
@@ -143,5 +145,12 @@ public class GameController : MonoBehaviour
         {
             return viewer.MazeLocationToWorldLocation(start);
         }
+    }
+
+    public int PlayerToMonster()
+    {
+        MazeLocation playerLocation = viewer.worldLocationToMazeLocation(player.transform.position);
+        MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
+        return this.GetDistance(playerLocation, monsterLocation);
     }
 }

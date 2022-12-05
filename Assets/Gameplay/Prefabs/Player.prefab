@@ -516,6 +516,10 @@ MonoBehaviour:
   puppy: {fileID: 0}
   monster: {fileID: 0}
   soundStrength: 5
+  maxPanicLevel: 10
+  panicThreshold1: 5
+  panicThreshold2: 2
+  panicBar: {fileID: 0}
 --- !u!1 &7838179732875154190
 GameObject:
   m_ObjectHideFlags: 0
