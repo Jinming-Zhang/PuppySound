@@ -18,6 +18,8 @@ public class GameIntroController : MonoBehaviour
     TransitionPanel transitionPanel;
     [SerializeField]
     List<TransitionPanel.TransitionData> introData;
+    [SerializeField]
+    StartMenu startPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,7 @@ public class GameIntroController : MonoBehaviour
             audioSource.Play();
             introData.ForEach(d => transitionPanel.AddTransitionTask(d));
             transitionPanel.Action(() => ShowStartMenu());
+            startPanel.gameObject.SetActive(false);
         }
     }
     void ShowStartMenu()
@@ -35,6 +38,8 @@ public class GameIntroController : MonoBehaviour
         audioSource.clip = startMenuClip;
         audioSource.loop = true;
         audioSource.Play();
+        transitionPanel.gameObject.SetActive(false);
+        startPanel.gameObject.SetActive(true);
         //() => SceneManager.LoadScene(1)
     }
 }
