@@ -164,4 +164,13 @@ public class DungeonViewer : MonoBehaviour
         }
         return new GridMazeLocation(row, col);
     }
+
+    public void ShowDoggoEchoUI(MazeLocation reedLoc, int dirIndex)
+    {
+        mazeCells[reedLoc.Row, reedLoc.Col].ShowTip(Color.yellow, dirIndex);
+    }
+    public void ShowMonsterEchoUI(MazeLocation reedLoc, int dirIndex)
+    {
+        mazeCells[reedLoc.Row, reedLoc.Col].ShowTip(Color.red, dirIndex);
+    }
 }

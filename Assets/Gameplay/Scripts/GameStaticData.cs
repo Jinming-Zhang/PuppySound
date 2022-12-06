@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class GameStaticData
 {
-    public static string PLAYER_NAME = "";
-    public static string DOGGO_NAME = "";
+    public static string PLAYER_NAME = "Reed";
+    public static string DOGGO_NAME = "Reedy";
 }

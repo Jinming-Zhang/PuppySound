@@ -14,7 +14,7 @@ public class CallButton : MonoBehaviour
     [SerializeField]
     NotificationPanel nPanel;
     [SerializeField]
-    List<string> playerTexts = new List<string>() { "Where are you?", "[dogName]!", "Can you hear me, [dogName]?", "Come here, [dogName]" };
+    List<string> playerTexts = new List<string>() { "Where are you?", $"{GameStaticData.PLAYER_NAME}!", $"Can you hear me, {GameStaticData.DOGGO_NAME}?", $"Come here, {GameStaticData.DOGGO_NAME}" };
 
     [SerializeField]
     List<string> dogTexts = new List<string>() { "Woof woof!", "Bow-wow!", "Ruff arff!", "Bark!" };
@@ -35,7 +35,9 @@ public class CallButton : MonoBehaviour
         nPanel.PushNotification(new NotificationInfo(playerTexts[Random.Range(0, playerTexts.Count)]));
         yield return new WaitForSeconds(1f);
         nPanel.PushNotification(new NotificationInfo(dogTexts[Random.Range(0, dogTexts.Count)]));
+        GameController.Instance.ShowDoggoEcho();
         yield return new WaitForSeconds(1f);
         nPanel.PushNotification(new NotificationInfo(monsterText));
+        GameController.Instance.ShowMonsterEcho();
     }
 }

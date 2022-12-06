@@ -2,6 +2,7 @@ using GameCore.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WolfAudioSystem;
 
@@ -152,5 +153,28 @@ public class GameController : MonoBehaviour
         MazeLocation playerLocation = viewer.worldLocationToMazeLocation(player.transform.position);
         MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
         return this.GetDistance(playerLocation, monsterLocation);
+    }
+
+    public void ShowDoggoEcho()
+    {
+        MazeLocation doggo = viewer.worldLocationToMazeLocation(puppy.transform.position);
+        MazeLocation reed = viewer.worldLocationToMazeLocation(player.transform.position);
+        var pathToPlayer = new AStarSearch().ComputePath(dungeon.Maze, doggo, reed);
+        if (pathToPlayer.Count > 1)
+        {
+            int dir = dungeon.Maze.GetDirection(reed, pathToPlayer[pathToPlayer.Count - 2]);
+            viewer.ShowDoggoEchoUI(reed, dir);
+        }
+    }
+    public void ShowMonsterEcho()
+    {
+        MazeLocation m = viewer.worldLocationToMazeLocation(monster.transform.position);
+        MazeLocation reed = viewer.worldLocationToMazeLocation(player.transform.position);
+        var pathToPlayer = new AStarSearch().ComputePath(dungeon.Maze, m, reed);
+        if (pathToPlayer.Count > 1)
+        {
+            int dir = dungeon.Maze.GetDirection(reed, pathToPlayer[pathToPlayer.Count - 2]);
+            viewer.ShowMonsterEchoUI(reed, dir);
+        }
     }
 }

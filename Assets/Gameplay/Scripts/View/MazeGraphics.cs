@@ -40,4 +40,34 @@ public abstract class MazeGraphics : MonoBehaviour
     {
         clder.enabled = activated;
     }
+
+    public void ShowTip(Color color, int dirIndex)
+    {
+        GameObject destroyLater = Instantiate(echosTemplate, tipLocations[dirIndex].transform);
+        destroyLater.GetComponentInChildren<SpriteRenderer>().color = color;
+        switch (dirIndex)
+        {
+            case 0:
+                destroyLater.transform.rotation = Quaternion.Euler(0, 0, 0);
+                break;
+            case 1:
+                destroyLater.transform.rotation = Quaternion.Euler(0, 0, -90);
+                break;
+            case 2:
+                destroyLater.transform.rotation = Quaternion.Euler(0, 0, -180);
+                break;
+            case 3:
+                destroyLater.transform.rotation = Quaternion.Euler(0, 0, -270);
+                break;
+            default:
+                break;
+        }
+        StartCoroutine(DestroyAfterSecCR(destroyLater.gameObject, 2));
+    }
+
+    IEnumerator DestroyAfterSecCR(GameObject target, float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        Destroy(target);
+    }
 }
