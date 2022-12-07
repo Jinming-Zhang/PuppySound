@@ -78,6 +78,25 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         viewer.UpdateGraphicsByPlayerPosition(player.GetComponent<WalkableChecker>().SteppingOn);
+        MazeLocation poppyLocation = viewer.worldLocationToMazeLocation(puppy.transform.position);
+        MazeLocation reedLocation = viewer.worldLocationToMazeLocation(player.transform.position);
+        MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
+        if (poppyLocation != reedLocation)
+        {
+            puppy.Hide();
+        }
+        else
+        {
+            puppy.Show();
+        }
+        if (monsterLocation != reedLocation)
+        {
+            monster.Hide();
+        }
+        else
+        {
+            monster.Show();
+        }
     }
     private void FixedUpdate()
     {

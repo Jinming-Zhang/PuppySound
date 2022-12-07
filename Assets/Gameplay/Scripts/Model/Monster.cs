@@ -18,6 +18,8 @@ public class Monster : MonoBehaviour
     Rigidbody2D rb;
     [SerializeField]
     float speed = 2;
+    [SerializeField]
+    SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +27,8 @@ public class Monster : MonoBehaviour
         targetLocation = gameObject.transform.position;
     }
 
-   
-   
+
+
     private void FixedUpdate()
     {
         if (Vector3.Distance(targetLocation, transform.position) > .1f)
@@ -34,7 +36,7 @@ public class Monster : MonoBehaviour
             Vector3 currentPos = transform.position;
             Vector3 direction = targetLocation - currentPos;
             direction = direction.normalized;
-            rb.MovePosition(currentPos+direction*speed*Time.fixedDeltaTime);
+            rb.MovePosition(currentPos + direction * speed * Time.fixedDeltaTime);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,11 +51,21 @@ public class Monster : MonoBehaviour
         {
             // move towards player.
             targetLocation = GameController.Instance.GetNextLocation(this.location, playerLocation);
-        } else
+        }
+        else
         {
             // move towards puppy.
             targetLocation = GameController.Instance.GetNextLocation(this.location, puppyLocation);
         }
+    }
+    public void Hide()
+    {
+        spriteRenderer.enabled = false;
+    }
+    public void Show()
+    {
+        spriteRenderer.enabled = true;
+
     }
 
 }

@@ -36,6 +36,8 @@ public class Puppy : MonoBehaviour
     }
 
     public PanicBar panicBar;
+    [SerializeField]
+    SpriteRenderer sprite;
 
     // Start is called before the first frame update.
     void Start()
@@ -84,6 +86,14 @@ public class Puppy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log($"Collided with {other.gameObject.name}");
+    }
+    public void Hide()
+    {
+        sprite.enabled = false;
+    }
+    public void Show()
+    {
+        sprite.enabled = true;
     }
 
 }

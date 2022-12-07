@@ -103,6 +103,8 @@ MonoBehaviour:
   panicThreshHold2: 8
   comfortEffect: 2
   soundStrength: 8
+  panicBar: {fileID: 0}
+  sprite: {fileID: 3541389780368720840}
 --- !u!65 &7260262587572496789
 BoxCollider:
   m_ObjectHideFlags: 0
