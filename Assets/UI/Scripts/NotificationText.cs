@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NotificationText : MonoBehaviour
@@ -14,8 +15,15 @@ public class NotificationText : MonoBehaviour
     float fadeTimer = 2f;
     bool started = false;
 
-    public void Action(string text)
+    GameObject following;
+    Vector3 offset = Vector3.zero;
+    public void SetOffset(Vector3 offset)
     {
+        this.offset = offset;
+    }
+    public void Action(string text, GameObject following = null)
+    {
+        this.following = following;
         if (!started)
         {
             started = true;
@@ -23,6 +31,8 @@ public class NotificationText : MonoBehaviour
             StartCoroutine(LifeCR());
         }
     }
+
+
 
     IEnumerator LifeCR()
     {
@@ -35,5 +45,12 @@ public class NotificationText : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         Destroy(gameObject);
+    }
+    private void LateUpdate()
+    {
+        if (following)
+        {
+            transform.position = Camera.main.WorldToScreenPoint(following.transform.position) + offset;
+        }
     }
 }

@@ -14,7 +14,7 @@ public class CallButton : MonoBehaviour
     [SerializeField]
     NotificationPanel nPanel;
     [SerializeField]
-    List<string> playerTexts = new List<string>() { "Where are you?", $"{GameStaticData.PLAYER_NAME}!", $"Can you hear me, {GameStaticData.DOGGO_NAME}?", $"Come here, {GameStaticData.DOGGO_NAME}" };
+    List<string> playerTexts = new List<string>() { "Where are you?", "puppy_name!", "Can you hear me, puppy_name?", "Come here, puppy_name" };
 
     [SerializeField]
     List<string> dogTexts = new List<string>() { "Woof woof!", "Bow-wow!", "Ruff arff!", "Bark!" };
@@ -32,12 +32,14 @@ public class CallButton : MonoBehaviour
     }
     IEnumerator PushNotificationsCR()
     {
-        nPanel.PushNotification(new NotificationInfo(playerTexts[Random.Range(0, playerTexts.Count)]));
-        yield return new WaitForSeconds(1f);
-        nPanel.PushNotification(new NotificationInfo(dogTexts[Random.Range(0, dogTexts.Count)]));
+        //nPanel.PushNotification(new NotificationInfo());
+        string saySomething = playerTexts[Random.Range(0, playerTexts.Count)].Replace("puppy_name", GameStaticData.DOGGO_NAME);
+        GameController.Instance.PlayerSays(saySomething);
+        yield return new WaitForSeconds(2f);
+        //nPanel.PushNotification(new NotificationInfo(dogTexts[Random.Range(0, dogTexts.Count)]));
         GameController.Instance.ShowDoggoEcho();
-        yield return new WaitForSeconds(1f);
-        nPanel.PushNotification(new NotificationInfo(monsterText));
+        yield return new WaitForSeconds(3f);
+        //nPanel.PushNotification(new NotificationInfo(monsterText));
         GameController.Instance.ShowMonsterEcho();
     }
 }

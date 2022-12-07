@@ -46,6 +46,15 @@ public class GameController : MonoBehaviour
     public PanicBar puppyPanicBar;
     public PanicBar playerPanicBar;
 
+    [Header("Lazy Lazy")]
+    [SerializeField]
+    AudioClip doggoAudio;
+    [SerializeField]
+    AudioClip monsterAudio;
+    [SerializeField]
+    NotificationText notificationTemplate;
+    [SerializeField]
+    Canvas canvas;
     private void Awake()
     {
         if (instance && instance != this)
@@ -165,6 +174,7 @@ public class GameController : MonoBehaviour
             int dir = dungeon.Maze.GetDirection(reed, pathToPlayer[pathToPlayer.Count - 2]);
             viewer.ShowDoggoEchoUI(reed, dir);
         }
+        AudioSystem.Instance.PlaySFXAtWorldPoint(doggoAudio, puppy.transform.position, 1);
     }
     public void ShowMonsterEcho()
     {
@@ -176,5 +186,15 @@ public class GameController : MonoBehaviour
             int dir = dungeon.Maze.GetDirection(reed, pathToPlayer[pathToPlayer.Count - 2]);
             viewer.ShowMonsterEchoUI(reed, dir);
         }
+        AudioSystem.Instance.PlaySFXAtWorldPoint(monsterAudio, monster.transform.position, 1);
+    }
+    public void PlayerSays(string text)
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(player.transform.position);
+        NotificationText no = Instantiate(notificationTemplate, canvas.transform);
+        no.GetComponent<RectTransform>().position = screenPos;
+        no.gameObject.SetActive(true);
+        no.SetOffset(Vector3.up * 100f);
+        no.Action(text, player.gameObject);
     }
 }
