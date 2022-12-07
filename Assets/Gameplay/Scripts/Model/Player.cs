@@ -26,10 +26,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int maxPanicLevel = 16;
 
-    [SerializeField]
     private int panicThreshold1 = 5;
-
-    [SerializeField]
     private int panicThreshold2 = 2;
 
     private int currentPanicLevel = 0;
@@ -40,7 +37,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        this.panicBar.SetMaxHealth(this.maxPanicLevel);
+        this.panicBar.SetMaxHealth(this.maxPanicLevel, 4, 7);
     }
 
     // Update is called once per frame

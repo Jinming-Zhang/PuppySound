@@ -30,7 +30,7 @@ public class PostProcessingController : MonoBehaviour
         {
             vignette = tmp;
         }
-        PulseVignette(new VignetteSetting(Color.red, 0.35f, 0.5f, 0.5f, 0.5f, 1.5f, .3f, 1.5f, .1f));
+        //PulseVignette(new VignetteSetting(Color.red, 0.35f, 0.5f, 0.5f, 0.5f, 1.5f, .3f, 1.5f, .1f));
     }
     public void PulseVignette(VignetteSetting config)
     {

@@ -21,7 +21,7 @@ public class Puppy : MonoBehaviour
     [SerializeField]
     private int comfortEffect = 2;
 
-    private float timeBeforePanicIncreace = 20;
+    private float timeBeforePanicIncreace = 10;
 
     public int SoundStrength { get => soundStrength; }
 
@@ -40,7 +40,7 @@ public class Puppy : MonoBehaviour
     // Start is called before the first frame update.
     void Start()
     {
-        panicBar.SetMaxHealth(this.maxPanicLevel);
+        panicBar.SetMaxHealth(this.maxPanicLevel, panicThreshHold1, panicThreshHold2);
     }
 
     // Update is called once per frame.
