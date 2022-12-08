@@ -784,7 +784,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389495741}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
@@ -1283,6 +1283,34 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1917007598260200350, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 151.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452196433706038483, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452196433706038483, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 942f894a771d90642a4ad3eecb51868a, type: 3}
+    - target: {fileID: 2452196433706038483, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452196433706038483, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_Color.b
+      value: 0.21867214
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452196433706038483, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.21867214
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452196433706038483, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_Color.r
+      value: 0.509434
+      objectReference: {fileID: 0}
     - target: {fileID: 8225998252945635442, guid: 10d626edc18a334438d59276750bb95b, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1371,6 +1399,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8225998253203273494, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8225998253203273494, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 72fe1b22dc90347e8b2dff8609aee358, type: 3}
     - target: {fileID: 8305762332577228958, guid: 10d626edc18a334438d59276750bb95b, type: 3}
       propertyPath: nPanel
       value: 
@@ -1386,6 +1422,10 @@ PrefabInstance:
     - target: {fileID: 8305762332577228958, guid: 10d626edc18a334438d59276750bb95b, type: 3}
       propertyPath: playerTexts.Array.data[3]
       value: Come here, puppy_name
+      objectReference: {fileID: 0}
+    - target: {fileID: 9120183108197752002, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 199
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10d626edc18a334438d59276750bb95b, type: 3}
