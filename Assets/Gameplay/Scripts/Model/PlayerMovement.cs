@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -25,12 +26,12 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         animationState = new Dictionary<string, bool>();
-        animationState.Add("face down", true);
-        animationState.Add("face up", false);
+        animationState.Add("face front", true);
+        animationState.Add("face back", false);
         animationState.Add("face right", false);
         animationState.Add("face left", false);
-        animationState.Add("walk down", false);
-        animationState.Add("walk up", false);
+        animationState.Add("walk front", false);
+        animationState.Add("walk back", false);
         animationState.Add("walk right", false);
         animationState.Add("walk left", false);
     }
@@ -45,16 +46,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetAnimationState(string name)
     {
-        foreach (string i in animationState.Keys)
+        foreach (string i in animationState.Keys.ToList())
         {
-            if (i == name)
-            {
-                animationState[i] = true;
-            } else
-            {
-                animationState[i] = false;
-            }
-            
+            animationState[i] = i == name;
         }
     }
 
@@ -125,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
             facingUp = false;
             facingDown = true;
 
-            SetAnimationState("walk down");
+            SetAnimationState("walk front");
 
             Vector3 localScale = transform.localScale;
             localScale.y *= -1f;
@@ -139,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
             facingUp = true;
             facingDown = false;
 
-            SetAnimationState("walk up");
+            SetAnimationState("walk back");
 
             Vector3 localScale = transform.localScale;
             localScale.y *= -1f;
@@ -150,18 +144,21 @@ public class PlayerMovement : MonoBehaviour
         {
             if (facingDown)
             {
-                SetAnimationState("face down");
-            } else if (facingLeft)
+                SetAnimationState("face font");
+            }
+            else if (facingLeft)
             {
                 SetAnimationState("face left");
-            } else if (facingRight)
+            }
+            else if (facingRight)
             {
                 SetAnimationState("face right");
-            } else if (facingUp)
-            {
-                SetAnimationState("face up");
             }
-            
+            else if (facingUp)
+            {
+                SetAnimationState("face back");
+            }
+
         }
     }
 }
