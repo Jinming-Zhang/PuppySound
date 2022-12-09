@@ -16,10 +16,46 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
 
+    [SerializeField]
+    private Animator animator;
+
+    private Dictionary<string, bool> animationState;
+
     // Start is called before the first frame update
     void Start()
     {
+        animationState = new Dictionary<string, bool>();
+        animationState.Add("face down", true);
+        animationState.Add("face up", false);
+        animationState.Add("face right", false);
+        animationState.Add("face left", false);
+        animationState.Add("walk down", false);
+        animationState.Add("walk up", false);
+        animationState.Add("walk right", false);
+        animationState.Add("walk left", false);
+    }
 
+    private void Update()
+    {
+        foreach (string i in animationState.Keys)
+        {
+            animator.SetBool(i, animationState[i]);
+        }
+    }
+
+    private void SetAnimationState(string name)
+    {
+        foreach (string i in animationState.Keys)
+        {
+            if (i == name)
+            {
+                animationState[i] = true;
+            } else
+            {
+                animationState[i] = false;
+            }
+            
+        }
     }
 
     public void Move()
@@ -60,6 +96,9 @@ public class PlayerMovement : MonoBehaviour
             facingLeft = true;
             facingUp = false;
             facingDown = false;
+
+            SetAnimationState("walk left");
+
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
@@ -71,6 +110,9 @@ public class PlayerMovement : MonoBehaviour
             facingLeft = false;
             facingUp = false;
             facingDown = false;
+
+            SetAnimationState("walk right");
+
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
@@ -82,6 +124,9 @@ public class PlayerMovement : MonoBehaviour
             facingLeft = false;
             facingUp = false;
             facingDown = true;
+
+            SetAnimationState("walk down");
+
             Vector3 localScale = transform.localScale;
             localScale.y *= -1f;
             transform.localScale = localScale;
@@ -93,10 +138,30 @@ public class PlayerMovement : MonoBehaviour
             facingLeft = false;
             facingUp = true;
             facingDown = false;
+
+            SetAnimationState("walk up");
+
             Vector3 localScale = transform.localScale;
             localScale.y *= -1f;
             transform.localScale = localScale;
 
+        }
+        else if (horizontal == 0f && vertical == 0f)
+        {
+            if (facingDown)
+            {
+                SetAnimationState("face down");
+            } else if (facingLeft)
+            {
+                SetAnimationState("face left");
+            } else if (facingRight)
+            {
+                SetAnimationState("face right");
+            } else if (facingUp)
+            {
+                SetAnimationState("face up");
+            }
+            
         }
     }
 }
