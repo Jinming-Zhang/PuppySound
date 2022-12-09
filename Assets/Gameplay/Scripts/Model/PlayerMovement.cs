@@ -93,10 +93,6 @@ public class PlayerMovement : MonoBehaviour
 
             SetAnimationState("walk left");
 
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-
         }
         else if (horizontal > 0f && vertical == 0f)
         {
@@ -106,10 +102,6 @@ public class PlayerMovement : MonoBehaviour
             facingDown = false;
 
             SetAnimationState("walk right");
-
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
 
         }
         else if (horizontal == 0f && vertical < 0f)
@@ -121,10 +113,6 @@ public class PlayerMovement : MonoBehaviour
 
             SetAnimationState("walk front");
 
-            Vector3 localScale = transform.localScale;
-            localScale.y *= -1f;
-            transform.localScale = localScale;
-
         }
         else if (horizontal == 0f && vertical > 0f)
         {
@@ -135,16 +123,12 @@ public class PlayerMovement : MonoBehaviour
 
             SetAnimationState("walk back");
 
-            Vector3 localScale = transform.localScale;
-            localScale.y *= -1f;
-            transform.localScale = localScale;
-
         }
         else if (horizontal == 0f && vertical == 0f)
         {
             if (facingDown)
             {
-                SetAnimationState("face font");
+                SetAnimationState("face front");
             }
             else if (facingLeft)
             {
