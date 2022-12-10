@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     {
         foreach (string i in animationState.Keys.ToList())
         {
-            animationState[i] = i == name;
+            animationState[i] = (i == name);
             if (animator.GetBool(i) != animationState[i])
             {
                 animator.SetBool(i, animationState[i]);
@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void updateFacing()
     {
+
         if (horizontal < 0f && vertical == 0f)
         {
             facingRight = false;
