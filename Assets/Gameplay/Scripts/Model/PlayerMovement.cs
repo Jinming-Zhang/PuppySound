@@ -36,36 +36,27 @@ public class PlayerMovement : MonoBehaviour
         animationState.Add("walk left", false);
     }
 
-    private void Update()
-    {
-        foreach (string i in animationState.Keys)
-        {
-            animator.SetBool(i, animationState[i]);
-        }
-    }
 
     private void SetAnimationState(string name)
     {
         foreach (string i in animationState.Keys.ToList())
         {
             animationState[i] = i == name;
+            if (animator.GetBool(i) != animationState[i])
+            {
+                animator.SetBool(i, animationState[i]);
+            }
         }
     }
 
     public void Move()
     {
-        //rb.velocity = new Vector2(horizontal * speed, vertical * speed);
         Vector3 pos = transform.position;
         pos.x = pos.x + horizontal * speed * Time.fixedDeltaTime;
         pos.y = pos.y + vertical * speed * Time.fixedDeltaTime;
         if (IsPositionOnMaze(pos))
         {
-            // Debug.Log("on board");
             rb.MovePosition(pos);
-        }
-        else
-        {
-            // Debug.Log("off board");
         }
     }
 
