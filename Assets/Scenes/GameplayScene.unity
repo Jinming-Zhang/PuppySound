@@ -1067,6 +1067,7 @@ MonoBehaviour:
   monster: {fileID: 4187503265663135653, guid: f0a226b16453645478cc84431e9b8e01, type: 3}
   mazeCellGraphic: {fileID: 4888752547587278454, guid: 791552be22658a6428fb1a28e38e8991, type: 3}
   mazeEdgeGraphic: {fileID: -5783917520385680999, guid: 1ef394f7fc9de5042855ff345129db6f, type: 3}
+  exitSprite: {fileID: 21300000, guid: 11f3f024aa614454c8b24f3cbb2007f6, type: 3}
   mazeDepth: 0
   characterDepth: -1
   floor1: {fileID: 21300000, guid: 675cb6411f36989469f42a1a69297d71, type: 3}

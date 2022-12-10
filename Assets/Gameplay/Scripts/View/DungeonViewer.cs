@@ -17,7 +17,8 @@ public class DungeonViewer : MonoBehaviour
     MazeGraphics mazeCellGraphic;
     [SerializeField]
     MazeGraphics mazeEdgeGraphic;
-    Material cellMaterial;
+    [SerializeField]
+    Sprite exitSprite;
     [SerializeField]
     float mazeDepth = 0;
     [SerializeField]
@@ -203,5 +204,9 @@ public class DungeonViewer : MonoBehaviour
     public void ShowMonsterEchoUI(MazeLocation reedLoc, int dirIndex)
     {
         mazeCells[reedLoc.Row, reedLoc.Col].ShowTip(Color.red, dirIndex);
+    }
+    public void SetExitLocation(MazeLocation exit)
+    {
+        mazeCells[exit.Row, exit.Col].SetSprite(exitSprite);
     }
 }

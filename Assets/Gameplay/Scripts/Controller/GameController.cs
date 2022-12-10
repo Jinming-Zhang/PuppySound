@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
     private Puppy puppy;
     [SerializeField]
     private Monster monster;
+    MazeLocation exit = null;
     public Monster Monster { get => monster; }
 
     [SerializeField]
@@ -49,6 +50,7 @@ public class GameController : MonoBehaviour
     [Header("Game Play Settings")]
     [SerializeField]
     float minEchoStrength = .5f;
+
     [Header("Lazy Lazy")]
     [SerializeField]
     AudioClip doggoAudio;
@@ -238,7 +240,20 @@ public class GameController : MonoBehaviour
     }
     public void OnPlayerFoundDog()
     {
-
+        int minDstToExit = 7;
+        MazeLocation reed = viewer.worldLocationToMazeLocation(player.transform.position);
+        AStarSearch a = new AStarSearch();
+        var allLocations = dungeon.Maze.GetAllLocations();
+        var exitCandidates = allLocations.FindAll(l => a.ComputePath(dungeon.Maze, reed, l).Count > minDstToExit);
+        if (exitCandidates.Count > 0)
+        {
+            exit = exitCandidates[UnityEngine.Random.Range(0, exitCandidates.Count)];
+        }
+        else
+        {
+            exit = allLocations[UnityEngine.Random.Range(0, allLocations.Count)];
+        }
+        viewer.SetExitLocation(exit);
     }
     public void OnPlayerDead()
     {

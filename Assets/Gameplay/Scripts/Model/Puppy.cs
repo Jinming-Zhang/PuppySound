@@ -119,11 +119,17 @@ public class Puppy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (reed)
+        {
+            return;
+        }
+
         PlayerMovement p = collision.gameObject.GetComponent<PlayerMovement>();
         if (p)
         {
             reed = p;
             followingSpeed = p.Speed;
+            GameController.Instance.OnPlayerFoundDog();
             Debug.Log("Reed found me!");
         }
     }
