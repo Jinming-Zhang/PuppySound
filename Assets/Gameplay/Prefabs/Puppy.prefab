@@ -53,7 +53,7 @@ MonoBehaviour:
   comfortEffect: 2
   soundStrength: 8
   panicBar: {fileID: 0}
-  sprite: {fileID: 0}
+  sprite: {fileID: 6795723835707142841}
   followingDistance: 0.2
 --- !u!61 &655935189665460485
 BoxCollider2D:
