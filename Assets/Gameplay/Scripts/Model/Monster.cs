@@ -5,14 +5,23 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     [SerializeField]
-    private Player player;
+    private PlayerMovement player;
 
     [SerializeField]
     private Puppy puppy;
 
-    [SerializeField]
-    private MazeLocation location;
-    public MazeLocation Location { get => location; set => location = value; }
+    //[SerializeField]
+    //private MazeLocation location;
+
+    public MazeLocation Location
+    {
+        get
+        {
+            MazeLocation l = GameController.Instance.Viewer.worldLocationToMazeLocation(transform.position);
+            return l;
+        }
+        //set => location = value;
+    }
 
     Vector3 targetLocation;
     Rigidbody2D rb;
@@ -46,16 +55,16 @@ public class Monster : MonoBehaviour
 
     public void OnPlayerCalling(int playerSoundStrength, int puppySoundStrength, MazeLocation playerLocation, MazeLocation puppyLocation)
     {
-        this.location = GameController.Instance.Viewer.worldLocationToMazeLocation(transform.position);
+        //this.location = GameController.Instance.Viewer.worldLocationToMazeLocation(transform.position);
         if (playerSoundStrength > puppySoundStrength)
         {
             // move towards player.
-            targetLocation = GameController.Instance.GetNextLocation(this.location, playerLocation);
+            targetLocation = GameController.Instance.GetNextLocation(this.Location, playerLocation);
         }
         else
         {
             // move towards puppy.
-            targetLocation = GameController.Instance.GetNextLocation(this.location, puppyLocation);
+            targetLocation = GameController.Instance.GetNextLocation(this.Location, puppyLocation);
         }
     }
     public void Hide()

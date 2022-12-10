@@ -1248,16 +1248,22 @@ MonoBehaviour:
   introData:
   - text: Once upon a time
     sprite: {fileID: 21300000, guid: 0a64d0e2ce5f744ac96f3f9759991460, type: 3}
+    stay: 0
   - text: player_name and his puppy, puppy_name, walked into a dungeon
     sprite: {fileID: 21300000, guid: 695bf1a0f9b004b57b57a6b3f78e4322, type: 3}
+    stay: 0
   - text: Little puppy get lost
     sprite: {fileID: 21300000, guid: c4550c49b87864e6fa713c5050fff80c, type: 3}
+    stay: 0
   - text: player_name can't live without puppy_name
     sprite: {fileID: 21300000, guid: ed1040a00dc884dc8a1cecce7ccc33c4, type: 3}
+    stay: 0
   - text: He rushed into the dungeon to find puppy_name
     sprite: {fileID: 21300000, guid: 61d43c9213e96492da5161e16d57dfc9, type: 3}
+    stay: 0
   - text: So the advanture begin...
     sprite: {fileID: 21300000, guid: 19ede287137504ab8ab51ea773c382b2, type: 3}
+    stay: 1
   startPanel: {fileID: 787401883}
 --- !u!4 &1707244576
 Transform:

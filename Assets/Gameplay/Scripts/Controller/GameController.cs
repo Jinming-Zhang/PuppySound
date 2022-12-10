@@ -46,6 +46,9 @@ public class GameController : MonoBehaviour
     public PanicBar puppyPanicBar;
     public PanicBar playerPanicBar;
 
+    [Header("Game Play Settings")]
+    [SerializeField]
+    float minEchoStrength = .5f;
     [Header("Lazy Lazy")]
     [SerializeField]
     AudioClip doggoAudio;
@@ -55,6 +58,8 @@ public class GameController : MonoBehaviour
     NotificationText notificationTemplate;
     [SerializeField]
     Canvas canvas;
+    [SerializeField]
+    bool debugging;
     private void Awake()
     {
         if (instance && instance != this)
@@ -77,11 +82,12 @@ public class GameController : MonoBehaviour
     }
     private void Update()
     {
+        viewer.showAll = debugging;
         viewer.UpdateGraphicsByPlayerPosition(player.GetComponent<WalkableChecker>().SteppingOn);
         MazeLocation poppyLocation = viewer.worldLocationToMazeLocation(puppy.transform.position);
         MazeLocation reedLocation = viewer.worldLocationToMazeLocation(player.transform.position);
         MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
-        if (poppyLocation != reedLocation)
+        if (poppyLocation != reedLocation && !debugging)
         {
             puppy.Hide();
         }
@@ -89,7 +95,7 @@ public class GameController : MonoBehaviour
         {
             puppy.Show();
         }
-        if (monsterLocation != reedLocation)
+        if (monsterLocation != reedLocation && !debugging)
         {
             monster.Hide();
         }
@@ -127,33 +133,47 @@ public class GameController : MonoBehaviour
         player.panicBar = this.playerPanicBar;
 
         puppy = viewer.InstantiatePuppy(puppyL).GetComponent<Puppy>();
-        puppy.Location = puppyL;
         puppy.panicBar = this.puppyPanicBar;
         monster = viewer.InstantiateMonster(monsterL).GetComponent<Monster>();
-        monster.Location = monsterL;
     }
 
     // triggered when Call button clicks
-    public void Calling()
+    public void Calling(string text = null)
     {
-        MazeLocation playerLocation = viewer.worldLocationToMazeLocation(player.transform.position);
-        MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
-        MazeLocation puppyLocation = puppy.Location;
-        int playerToMonster = Utility.calculateSoundStrength(dungeon.Maze, playerLocation, monsterLocation, player.GetSoundStrength);
-
-        // if puppy barks, lead monster to the closest one.
-        bool puppyBark = puppy.called();
-        if (puppyBark)
+        StartCoroutine(CallingCR());
+        IEnumerator CallingCR()
         {
-            int puppyToMonster = Utility.calculateSoundStrength(dungeon.Maze, puppyLocation, monsterLocation, player.GetSoundStrength);
-            monster.OnPlayerCalling(playerToMonster, puppyToMonster, playerLocation, puppyLocation);
-        }
-        else
-        {
-            // otherwise leads the monster to player
-            monster.OnPlayerCalling(playerToMonster, -1, playerLocation, puppyLocation);
-        }
+            if (text != null)
+            {
+                PlayerSays(text);
+            }
+            yield return new WaitForSeconds(2f);
 
+            MazeLocation playerLocation = viewer.worldLocationToMazeLocation(player.transform.position);
+            MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
+            MazeLocation puppyLocation = puppy.Location;
+            int playerToMonster = Utility.calculateSoundStrength(dungeon.Maze, playerLocation, monsterLocation, player.GetSoundStrength);
+
+            // if puppy barks, lead monster to the closest one.
+            bool puppyBark = puppy.called();
+            if (puppyBark)
+            {
+                int puppyToMonster = Utility.calculateSoundStrength(dungeon.Maze, puppyLocation, monsterLocation, player.GetSoundStrength);
+                ShowDoggoEcho();
+                yield return new WaitForSeconds(3f);
+                monster.OnPlayerCalling(playerToMonster, puppyToMonster, playerLocation, puppyLocation);
+                ShowMonsterEcho();
+            }
+            else
+            {
+                yield return new WaitForSeconds(3f);
+                // otherwise leads the monster to player
+                monster.OnPlayerCalling(playerToMonster, -1, playerLocation, puppyLocation);
+                ShowMonsterEcho();
+            }
+
+
+        }
     }
 
     public int GetDistance(MazeLocation start, MazeLocation mazeLocation)
@@ -183,7 +203,7 @@ public class GameController : MonoBehaviour
         return this.GetDistance(playerLocation, monsterLocation);
     }
 
-    public void ShowDoggoEcho()
+    public void ShowDoggoEcho(float soundStrength = 1)
     {
         MazeLocation doggo = viewer.worldLocationToMazeLocation(puppy.transform.position);
         MazeLocation reed = viewer.worldLocationToMazeLocation(player.transform.position);
@@ -193,9 +213,9 @@ public class GameController : MonoBehaviour
             int dir = dungeon.Maze.GetDirection(reed, pathToPlayer[pathToPlayer.Count - 2]);
             viewer.ShowDoggoEchoUI(reed, dir);
         }
-        AudioSystem.Instance.PlaySFXAtWorldPoint(doggoAudio, puppy.transform.position, 1);
+        AudioSystem.Instance.PlaySFXAtWorldPoint(doggoAudio, puppy.transform.position, soundStrength);
     }
-    public void ShowMonsterEcho()
+    public void ShowMonsterEcho(float soundStrength = 1)
     {
         MazeLocation m = viewer.worldLocationToMazeLocation(monster.transform.position);
         MazeLocation reed = viewer.worldLocationToMazeLocation(player.transform.position);
@@ -205,7 +225,7 @@ public class GameController : MonoBehaviour
             int dir = dungeon.Maze.GetDirection(reed, pathToPlayer[pathToPlayer.Count - 2]);
             viewer.ShowMonsterEchoUI(reed, dir);
         }
-        AudioSystem.Instance.PlaySFXAtWorldPoint(monsterAudio, monster.transform.position, 1);
+        AudioSystem.Instance.PlaySFXAtWorldPoint(monsterAudio, monster.transform.position, soundStrength);
     }
     public void PlayerSays(string text)
     {
@@ -215,5 +235,17 @@ public class GameController : MonoBehaviour
         no.gameObject.SetActive(true);
         no.SetOffset(Vector3.up * 100f);
         no.Action(text, player.gameObject);
+    }
+    public void OnPlayerFoundDog()
+    {
+
+    }
+    public void OnPlayerDead()
+    {
+
+    }
+    public void OnPlayerFoundExit()
+    {
+
     }
 }

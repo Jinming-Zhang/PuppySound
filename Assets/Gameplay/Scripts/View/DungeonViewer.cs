@@ -42,7 +42,7 @@ public class DungeonViewer : MonoBehaviour
     List<MazeGraphics> mazeEdgeGraphics;
 
     IMazeModel mazeModel;
-
+    public bool showAll = false;
     public void setMaze(IMazeModel newMaze)
     {
         mazeModel = newMaze;
@@ -74,7 +74,7 @@ public class DungeonViewer : MonoBehaviour
                 cell.transform.position = MazeLocationToWorldLocation(new GridMazeLocation(r, c));
 
                 int rand = Random.Range(0, 3);
-                switch(rand)
+                switch (rand)
                 {
                     case 0:
                         cell.SetSprite(floor1);
@@ -89,7 +89,7 @@ public class DungeonViewer : MonoBehaviour
                         cell.SetSprite(floor1);
                         break;
                 }
-                
+
             }
         }
     }
@@ -132,7 +132,14 @@ public class DungeonViewer : MonoBehaviour
                 }
                 else
                 {
-                    mazeCells[r, c].Hide();
+                    if (showAll)
+                    {
+                        mazeCells[r, c].Show();
+                    }
+                    else
+                    {
+                        mazeCells[r, c].Hide();
+                    }
                 }
             }
         }

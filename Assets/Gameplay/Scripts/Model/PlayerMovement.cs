@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     private float vertical;
     private float speed = 2f;
+    public float Speed { get => speed; }
     private bool facingRight = false;
     private bool facingLeft = false;
     private bool facingDown = false;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
 
     private Dictionary<string, bool> animationState;
+
 
     private void Awake()
     {
@@ -51,8 +53,8 @@ public class PlayerMovement : MonoBehaviour
     public void Move()
     {
         Vector3 pos = transform.position;
-        pos.x = pos.x + horizontal * speed * Time.fixedDeltaTime;
-        pos.y = pos.y + vertical * speed * Time.fixedDeltaTime;
+        pos.x = pos.x + horizontal * Speed * Time.fixedDeltaTime;
+        pos.y = pos.y + vertical * Speed * Time.fixedDeltaTime;
         if (IsPositionOnMaze(pos))
         {
             rb.MovePosition(pos);

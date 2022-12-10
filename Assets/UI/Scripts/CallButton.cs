@@ -28,7 +28,8 @@ public class CallButton : MonoBehaviour
         //dialogue.callingEvent();
         StopAllCoroutines();
         overlay.Action(cd);
-        StartCoroutine(PushNotificationsCR());
+        string saySomething = playerTexts[Random.Range(0, playerTexts.Count)].Replace("puppy_name", GameStaticData.DOGGO_NAME);
+        GameController.Instance.Calling(saySomething);
     }
     IEnumerator PushNotificationsCR()
     {

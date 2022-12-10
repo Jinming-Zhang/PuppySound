@@ -44,7 +44,14 @@ public class TransitionPanel : MonoBehaviour
             cg.alpha = 0;
             TransitionData t = transitionQueue[0];
             transitionQueue.RemoveAt(0);
-            tmpText.text = t.text.Replace("player_name", GameStaticData.PLAYER_NAME).Replace("puppy_name", GameStaticData.DOGGO_NAME); ;
+            if (string.IsNullOrEmpty(t.text))
+            {
+                tmpText.text = string.Empty;
+            }
+            else
+            {
+                tmpText.text = t.text.Replace("player_name", GameStaticData.PLAYER_NAME).Replace("puppy_name", GameStaticData.DOGGO_NAME); ;
+            }
             if (t.sprite)
             {
                 background.sprite = t.sprite;
@@ -58,12 +65,15 @@ public class TransitionPanel : MonoBehaviour
             }
             // stay
             yield return new WaitForSeconds(stayDuration);
-            // transition out
-            while (cg.alpha > 0)
+            if (!t.stay)
             {
-                float delta = 1f / transOutDuration * Time.deltaTime;
-                cg.alpha = Mathf.Max(0, cg.alpha - delta);
-                yield return new WaitForEndOfFrame();
+                // transition out
+                while (cg.alpha > 0)
+                {
+                    float delta = 1f / transOutDuration * Time.deltaTime;
+                    cg.alpha = Mathf.Max(0, cg.alpha - delta);
+                    yield return new WaitForEndOfFrame();
+                }
             }
             yield return new WaitForSeconds(durationBetweenTransition);
         }
@@ -74,10 +84,12 @@ public class TransitionPanel : MonoBehaviour
     {
         public string text;
         public Sprite sprite;
-        public TransitionData(string text = "", Sprite sprite = null)
+        public bool stay = false;
+        public TransitionData(string text = "", Sprite sprite = null, bool stay = false)
         {
             this.text = text;
             this.sprite = sprite;
+            this.stay = stay;
         }
     }
 }
