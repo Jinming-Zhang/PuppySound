@@ -28,6 +28,12 @@ public abstract class MazeGraphics : MonoBehaviour
             graphic.color = c;
         }
     }
+
+    public void SetSprite(Sprite sprite)
+    {
+        graphic.sprite = sprite;
+    }
+
     public void Show()
     {
         targetAlpha = 1;

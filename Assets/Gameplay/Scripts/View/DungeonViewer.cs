@@ -22,6 +22,12 @@ public class DungeonViewer : MonoBehaviour
     float mazeDepth = 0;
     [SerializeField]
     float characterDepth = -1;
+    [SerializeField]
+    Sprite floor1;
+    [SerializeField]
+    Sprite floor2;
+    [SerializeField]
+    Sprite floor3;
 
     [Header("Display Settings")]
     [SerializeField]
@@ -66,6 +72,24 @@ public class DungeonViewer : MonoBehaviour
                 mazeCells[r, c] = cell;
                 cell.gameObject.name = $"Maze Cell [{r},{c}]";
                 cell.transform.position = MazeLocationToWorldLocation(new GridMazeLocation(r, c));
+
+                int rand = Random.Range(0, 3);
+                switch(rand)
+                {
+                    case 0:
+                        cell.SetSprite(floor1);
+                        break;
+                    case 1:
+                        cell.SetSprite(floor2);
+                        break;
+                    case 2:
+                        cell.SetSprite(floor3);
+                        break;
+                    default:
+                        cell.SetSprite(floor1);
+                        break;
+                }
+                
             }
         }
     }
