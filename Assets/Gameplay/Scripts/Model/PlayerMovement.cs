@@ -22,8 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Dictionary<string, bool> animationState;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         animationState = new Dictionary<string, bool>();
         animationState.Add("face front", true);
@@ -34,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
         animationState.Add("walk back", false);
         animationState.Add("walk right", false);
         animationState.Add("walk left", false);
-    }
 
+    }
 
     private void SetAnimationState(string name)
     {

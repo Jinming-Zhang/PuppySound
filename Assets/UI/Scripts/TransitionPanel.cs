@@ -44,7 +44,7 @@ public class TransitionPanel : MonoBehaviour
             cg.alpha = 0;
             TransitionData t = transitionQueue[0];
             transitionQueue.RemoveAt(0);
-            tmpText.text = t.text;
+            tmpText.text = t.text.Replace("player_name", GameStaticData.PLAYER_NAME).Replace("puppy_name", GameStaticData.DOGGO_NAME); ;
             if (t.sprite)
             {
                 background.sprite = t.sprite;

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
+    [SerializeField]
+    GameIntroController gameIntroController;
     [Header("Menus")]
     [SerializeField]
     CanvasGroup menuButtonsCG;
@@ -36,11 +38,14 @@ public class StartMenu : MonoBehaviour
             GameStaticData.PLAYER_NAME = playerNameInputField.text;
             GameStaticData.DOGGO_NAME = puppyNameInputField.text;
             fadedInputPanel = true;
-            menuButtonsCG.gameObject.SetActive(true);
             StartCoroutine(FadeoutInputPanel());
-            StartCoroutine(FadeInMenuButtons());
         }
     }
+    public void ShowMenu()
+    {
+        StartCoroutine(FadeInMenuButtons());
+    }
+
     public void OnStartPressed()
     {
         SceneManager.LoadScene(1);
@@ -59,9 +64,11 @@ public class StartMenu : MonoBehaviour
             inputsCg.alpha = Mathf.Max(0, inputsCg.alpha - delta);
             yield return new WaitForEndOfFrame();
         }
+        gameIntroController.OnPlayerFinishedInput();
     }
     IEnumerator FadeInMenuButtons()
     {
+        menuButtonsCG.gameObject.SetActive(true);
         menuButtonsCG.alpha = 0;
         while (menuButtonsCG.alpha < 1)
         {
