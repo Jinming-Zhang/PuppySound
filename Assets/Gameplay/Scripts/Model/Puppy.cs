@@ -79,6 +79,7 @@ public class Puppy : MonoBehaviour
             {
                 Vector3 dir = (reed.transform.position - transform.position).normalized;
                 transform.position = transform.position + dir * followingSpeed * Time.deltaTime;
+                transform.right = dir.x > 0 ? Vector3.left : Vector3.right;
             }
         }
     }

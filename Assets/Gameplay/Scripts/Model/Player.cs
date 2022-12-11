@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
 
     private float stressTimer = 5f;
 
+    public bool controllable = true;
     void Start()
     {
         this.panicBar.SetMaxHealth(this.maxPanicLevel, 4, 7);
@@ -51,13 +52,15 @@ public class Player : MonoBehaviour
             if (stressTimer > 0)
             {
                 stressTimer -= Time.deltaTime;
-            } else if (stressTimer <= 0)
+            }
+            else if (stressTimer <= 0)
             {
                 this.currentPanicLevel += 1;
                 stressTimer = 5f;
             }
             currentSpeed = playerSpeed - 0.5f;
-        } else if (currentDistanceToMonster <= panicThreshold2)
+        }
+        else if (currentDistanceToMonster <= panicThreshold2)
         {
             if (stressTimer > 0)
             {
@@ -69,7 +72,8 @@ public class Player : MonoBehaviour
                 stressTimer = 5f;
             }
             currentSpeed = playerSpeed - 1f;
-        } else if (currentDistanceToMonster > this.panicThreshold1)
+        }
+        else if (currentDistanceToMonster > this.panicThreshold1)
         {
             if (stressTimer >= 5f)
             {
@@ -78,7 +82,8 @@ public class Player : MonoBehaviour
                     currentPanicLevel -= 1;
                 }
                 stressTimer = 0f;
-            } else
+            }
+            else
             {
                 stressTimer += Time.deltaTime;
             }
@@ -86,10 +91,17 @@ public class Player : MonoBehaviour
         }
 
         this.panicBar.SetPanicLevel(this.currentPanicLevel);
+        if (currentPanicLevel >= maxPanicLevel)
+        {
+            GameController.Instance.OnPlayerDead();
+        }
         playerMovement.ReadInput(currentSpeed);
     }
     private void FixedUpdate()
     {
-        playerMovement.Move();
+        if (controllable)
+        {
+            playerMovement.Move();
+        }
     }
 }

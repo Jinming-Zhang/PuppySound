@@ -27,6 +27,13 @@ public class GameIntroController : MonoBehaviour
         ShowStartMenu();
 
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            transitionPanel.idontwantyourstorystopstopstopstopstop();
+        }
+    }
     void ShowStartMenu()
     {
         transitionPanel.gameObject.SetActive(false);

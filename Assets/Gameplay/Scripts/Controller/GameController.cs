@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using WolfAudioSystem;
 
 public class GameController : MonoBehaviour
@@ -35,7 +36,6 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Monster monster;
     MazeLocation exit = null;
-    bool foundPuppy;
     public Monster Monster { get => monster; }
 
     [SerializeField]
@@ -60,6 +60,8 @@ public class GameController : MonoBehaviour
 
     [Header("Lazy Lazy")]
     [SerializeField]
+    JustAFader fader;
+    [SerializeField]
     AudioClip doggoAudio;
     [SerializeField]
     AudioClip monsterAudio;
@@ -69,6 +71,10 @@ public class GameController : MonoBehaviour
     Canvas canvas;
     [SerializeField]
     bool debugging;
+    // game state tracking
+    bool foundPuppy;
+    bool playerDead;
+    bool playerFoundExit;
     private void Awake()
     {
         if (instance && instance != this)
@@ -196,14 +202,22 @@ public class GameController : MonoBehaviour
         }
         void AskExit()
         {
-            MazeLocation reed = viewer.worldLocationToMazeLocation(player.transform.position);
-            AStarSearch wow = new AStarSearch();
-            var pathToHeaven = wow.ComputePath(dungeon.Maze, reed, exit);
-            if (pathToHeaven.Count > 1)
+            StartCoroutine(AskExitCR());
+            IEnumerator AskExitCR()
             {
-                MazeLocation tipCell = pathToHeaven[1];
-                int dirIndex = dungeon.Maze.GetDirection(reed, tipCell);
-                viewer.ShowPathToExitUI(reed, dirIndex);
+                PlayerSays($"Can you feel the exit {GameStaticData.DOGGO_NAME}?");
+                yield return new WaitForSeconds(2f);
+
+                MazeLocation reed = viewer.worldLocationToMazeLocation(player.transform.position);
+                AStarSearch wow = new AStarSearch();
+                var pathToHeaven = wow.ComputePath(dungeon.Maze, reed, exit);
+                if (pathToHeaven.Count > 1)
+                {
+                    MazeLocation tipCell = pathToHeaven[1];
+                    int dirIndex = dungeon.Maze.GetDirection(reed, tipCell);
+                    viewer.ShowPathToExitUI(reed, dirIndex);
+                    AudioSystem.Instance.PlaySFXAtWorldPoint(doggoAudio, puppy.transform.position, 1);
+                }
             }
         }
     }
@@ -288,10 +302,38 @@ public class GameController : MonoBehaviour
     }
     public void OnPlayerDead()
     {
-
+        if (!playerDead)
+        {
+            playerDead = true;
+            StartCoroutine(PlayerDeadCR());
+        }
+        IEnumerator PlayerDeadCR()
+        {
+            PlayerSays($"OMG THE MONSTER!!!");
+            yield return new WaitForSeconds(4f);
+            PlayerSays($"I'm scared to DEATH!!");
+            yield return new WaitForSeconds(4f);
+            fader.FadeToBlack(2, () => SceneManager.LoadScene("SadSadSad"));
+        }
     }
     public void OnPlayerFoundExit()
     {
+        if (!playerFoundExit)
+        {
+            StartCoroutine(gamendCR());
+        }
+        IEnumerator gamendCR()
+        {
+            playerFoundExit = true;
+            player.controllable = false;
+            PlayerSays($"OMG {GameStaticData.DOGGO_NAME} you found the exit!!");
+            yield return new WaitForSeconds(4f);
+            PlayerSays($"Let's get out of here!!");
+            yield return new WaitForSeconds(4f);
+            PlayerSays($"Wryyyyyyyyyyyyyyyyyyyyyyyyy");
+            yield return new WaitForSeconds(4f);
+            fader.FadeToBlack(2, () => SceneManager.LoadScene("HappyEnding"));
 
+        }
     }
 }

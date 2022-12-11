@@ -18,7 +18,7 @@ public class DungeonViewer : MonoBehaviour
     [SerializeField]
     MazeGraphics mazeEdgeGraphic;
     [SerializeField]
-    Sprite exitSprite;
+    GameObject exitTemplate;
     [SerializeField]
     float mazeDepth = 0;
     [SerializeField]
@@ -40,7 +40,6 @@ public class DungeonViewer : MonoBehaviour
 
     // local members
     MazeGraphics[,] mazeCells;
-    List<MazeGraphics> mazeEdgeGraphics;
 
     IMazeModel mazeModel;
     public bool showAll = false;
@@ -217,6 +216,6 @@ public class DungeonViewer : MonoBehaviour
 
     public void SetExitLocation(MazeLocation exit)
     {
-        mazeCells[exit.Row, exit.Col].SetSprite(exitSprite);
+        Instantiate(exitTemplate, mazeCells[exit.Row, exit.Col].transform);
     }
 }

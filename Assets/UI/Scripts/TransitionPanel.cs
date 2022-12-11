@@ -25,17 +25,24 @@ public class TransitionPanel : MonoBehaviour
     List<TransitionData> transitionQueue = new List<TransitionData>();
 
     Action onTransitionFinished;
-
+    bool shutup;
     public void AddTransitionTask(TransitionData task)
     {
         transitionQueue.Add(task);
     }
     public void Action(Action finishedCB = null)
     {
+        shutup = false;
         onTransitionFinished = finishedCB;
         StopAllCoroutines();
         StartCoroutine(TransitionCR());
     }
+    public void idontwantyourstorystopstopstopstopstop()
+    {
+        transitionQueue.Clear();
+        shutup = true;
+    }
+
     IEnumerator TransitionCR()
     {
         while (transitionQueue.Count > 0)
@@ -63,6 +70,10 @@ public class TransitionPanel : MonoBehaviour
                 cg.alpha = Mathf.Min(1, cg.alpha + delta);
                 yield return new WaitForEndOfFrame();
             }
+            if (shutup)
+            {
+                break;
+            }
             // stay
             yield return new WaitForSeconds(stayDuration);
             if (!t.stay)
@@ -79,6 +90,7 @@ public class TransitionPanel : MonoBehaviour
         }
         onTransitionFinished?.Invoke();
     }
+
     [Serializable]
     public class TransitionData
     {
