@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Monster monster;
     MazeLocation exit = null;
+    bool foundPuppy;
     public Monster Monster { get => monster; }
 
     [SerializeField]
@@ -50,6 +51,12 @@ public class GameController : MonoBehaviour
     [Header("Game Play Settings")]
     [SerializeField]
     float minEchoStrength = .5f;
+
+    [Header("UI Initialization")]
+    [SerializeField]
+    TMPro.TextMeshProUGUI playerBarText;
+    [SerializeField]
+    TMPro.TextMeshProUGUI puppyBarText;
 
     [Header("Lazy Lazy")]
     [SerializeField]
@@ -81,6 +88,8 @@ public class GameController : MonoBehaviour
         {
             AudioSystem.Instance.TransitionBGMQuick(audioData.dungeonBGMClip);
         }
+        playerBarText.text = GameStaticData.PLAYER_NAME;
+        puppyBarText.text = GameStaticData.DOGGO_NAME;
     }
     private void Update()
     {
@@ -142,39 +151,60 @@ public class GameController : MonoBehaviour
     // triggered when Call button clicks
     public void Calling(string text = null)
     {
-        StartCoroutine(CallingCR());
-        IEnumerator CallingCR()
+        if (!foundPuppy)
         {
-            if (text != null)
+            CallingDoggo();
+        }
+        else
+        {
+            AskExit();
+        }
+        void CallingDoggo()
+        {
+            StartCoroutine(CallingCR());
+            IEnumerator CallingCR()
             {
-                PlayerSays(text);
+                if (text != null)
+                {
+                    PlayerSays(text);
+                }
+                yield return new WaitForSeconds(2f);
+
+                MazeLocation playerLocation = viewer.worldLocationToMazeLocation(player.transform.position);
+                MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
+                MazeLocation puppyLocation = puppy.Location;
+                int playerToMonster = Utility.calculateSoundStrength(dungeon.Maze, playerLocation, monsterLocation, player.GetSoundStrength);
+
+                // if puppy barks, lead monster to the closest one.
+                bool puppyBark = puppy.called();
+                if (puppyBark)
+                {
+                    int puppyToMonster = Utility.calculateSoundStrength(dungeon.Maze, puppyLocation, monsterLocation, player.GetSoundStrength);
+                    ShowDoggoEcho();
+                    yield return new WaitForSeconds(3f);
+                    monster.OnPlayerCalling(playerToMonster, puppyToMonster, playerLocation, puppyLocation);
+                    ShowMonsterEcho();
+                }
+                else
+                {
+                    yield return new WaitForSeconds(3f);
+                    // otherwise leads the monster to player
+                    monster.OnPlayerCalling(playerToMonster, -1, playerLocation, puppyLocation);
+                    ShowMonsterEcho();
+                }
             }
-            yield return new WaitForSeconds(2f);
-
-            MazeLocation playerLocation = viewer.worldLocationToMazeLocation(player.transform.position);
-            MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
-            MazeLocation puppyLocation = puppy.Location;
-            int playerToMonster = Utility.calculateSoundStrength(dungeon.Maze, playerLocation, monsterLocation, player.GetSoundStrength);
-
-            // if puppy barks, lead monster to the closest one.
-            bool puppyBark = puppy.called();
-            if (puppyBark)
+        }
+        void AskExit()
+        {
+            MazeLocation reed = viewer.worldLocationToMazeLocation(player.transform.position);
+            AStarSearch wow = new AStarSearch();
+            var pathToHeaven = wow.ComputePath(dungeon.Maze, reed, exit);
+            if (pathToHeaven.Count > 1)
             {
-                int puppyToMonster = Utility.calculateSoundStrength(dungeon.Maze, puppyLocation, monsterLocation, player.GetSoundStrength);
-                ShowDoggoEcho();
-                yield return new WaitForSeconds(3f);
-                monster.OnPlayerCalling(playerToMonster, puppyToMonster, playerLocation, puppyLocation);
-                ShowMonsterEcho();
+                MazeLocation tipCell = pathToHeaven[1];
+                int dirIndex = dungeon.Maze.GetDirection(reed, tipCell);
+                viewer.ShowPathToExitUI(reed, dirIndex);
             }
-            else
-            {
-                yield return new WaitForSeconds(3f);
-                // otherwise leads the monster to player
-                monster.OnPlayerCalling(playerToMonster, -1, playerLocation, puppyLocation);
-                ShowMonsterEcho();
-            }
-
-
         }
     }
 
@@ -240,6 +270,7 @@ public class GameController : MonoBehaviour
     }
     public void OnPlayerFoundDog()
     {
+        foundPuppy = true;
         int minDstToExit = 7;
         MazeLocation reed = viewer.worldLocationToMazeLocation(player.transform.position);
         AStarSearch a = new AStarSearch();

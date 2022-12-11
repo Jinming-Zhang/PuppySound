@@ -90,6 +90,9 @@ public class DungeonViewer : MonoBehaviour
                         cell.SetSprite(floor1);
                         break;
                 }
+                // draw walls
+                List<GridMazeModel.DirectionInfo> avaiableDirs = mazeModel.AvailableDirections(new GridMazeLocation(r, c));
+                cell.DrawWall(avaiableDirs);
 
             }
         }
@@ -201,10 +204,17 @@ public class DungeonViewer : MonoBehaviour
     {
         mazeCells[reedLoc.Row, reedLoc.Col].ShowTip(Color.yellow, dirIndex);
     }
+
     public void ShowMonsterEchoUI(MazeLocation reedLoc, int dirIndex)
     {
         mazeCells[reedLoc.Row, reedLoc.Col].ShowTip(Color.red, dirIndex);
     }
+
+    public void ShowPathToExitUI(MazeLocation reedLoc, int dirIndex)
+    {
+        mazeCells[reedLoc.Row, reedLoc.Col].ShowTip(Color.yellow, dirIndex, true);
+    }
+
     public void SetExitLocation(MazeLocation exit)
     {
         mazeCells[exit.Row, exit.Col].SetSprite(exitSprite);

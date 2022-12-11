@@ -35,7 +35,6 @@ public class CallButton : MonoBehaviour
     {
         //dialogue.gameObject.SetActive(true);
         //dialogue.callingEvent();
-        StopAllCoroutines();
         overlay.Action(coolDown);
         string saySomething = playerTexts[Random.Range(0, playerTexts.Count)].Replace("puppy_name", GameStaticData.DOGGO_NAME);
         GameController.Instance.Calling(saySomething);
