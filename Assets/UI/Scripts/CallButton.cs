@@ -7,7 +7,7 @@ public class CallButton : MonoBehaviour
     [SerializeField]
     DialoguePanel dialogue;
     [SerializeField]
-    float cd = 2f;
+    float coolDown = 5f;
     [SerializeField]
     CountDownUIOverlay overlay;
 
@@ -19,15 +19,24 @@ public class CallButton : MonoBehaviour
     [SerializeField]
     List<string> dogTexts = new List<string>() { "Woof woof!", "Bow-wow!", "Ruff arff!", "Bark!" };
 
-    [SerializeField]
-    string monsterText = "(Deep roaring from afar.)";
+    private float cdCounter = 0f;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && cdCounter <= 0)
+        {
+            onCall();
+            cdCounter = coolDown;
+        }
+        cdCounter -= Time.deltaTime;
+    }
 
     public void onCall()
     {
         //dialogue.gameObject.SetActive(true);
         //dialogue.callingEvent();
         StopAllCoroutines();
-        overlay.Action(cd);
+        overlay.Action(coolDown);
         string saySomething = playerTexts[Random.Range(0, playerTexts.Count)].Replace("puppy_name", GameStaticData.DOGGO_NAME);
         GameController.Instance.Calling(saySomething);
     }
@@ -40,7 +49,6 @@ public class CallButton : MonoBehaviour
         //nPanel.PushNotification(new NotificationInfo(dogTexts[Random.Range(0, dogTexts.Count)]));
         GameController.Instance.ShowDoggoEcho();
         yield return new WaitForSeconds(3f);
-        //nPanel.PushNotification(new NotificationInfo(monsterText));
         GameController.Instance.ShowMonsterEcho();
     }
 }
