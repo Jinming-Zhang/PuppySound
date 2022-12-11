@@ -1242,6 +1242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1707244577}
+  doggoClip: {fileID: 8300000, guid: 4a8ffa9741b01bc4491be723b6dfa752, type: 3}
   introClip: {fileID: 8300000, guid: 3e23e037f724b19439be2a1fa444efe1, type: 3}
   startMenuClip: {fileID: 8300000, guid: 7119704176ad82043beef82c7b75fcfa, type: 3}
   transitionPanel: {fileID: 1004419425}

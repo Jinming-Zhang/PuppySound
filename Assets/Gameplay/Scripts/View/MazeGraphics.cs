@@ -19,27 +19,38 @@ public abstract class MazeGraphics : MonoBehaviour
     [SerializeField]
     GameObject wallTemplate;
 
-    List<SpriteRenderer> wallSprites = new List<SpriteRenderer>();
+    List<SpriteRenderer> allGraphics = new List<SpriteRenderer>();
 
     float targetAlpha = 1;
     public abstract float TransitionSpeed { get; }
+    private void Start()
+    {
+        allGraphics.Add(graphic);
+    }
     private void Update()
     {
         float delta = 1 / TransitionSpeed * Time.deltaTime;
         if (graphic.color.a != targetAlpha)
         {
-            Color c = graphic.color;
-            c.a = targetAlpha - graphic.color.a > 0 ? c.a + delta : c.a - delta;
-            c.a = Mathf.Clamp01(c.a);
-            graphic.color = c;
+            //Color c = graphic.color;
+            //c.a = targetAlpha - graphic.color.a > 0 ? c.a + delta : c.a - delta;
+            //c.a = Mathf.Clamp01(c.a);
+            //graphic.color = c;
 
-            wallSprites.ForEach(s =>
+            allGraphics.ForEach(s =>
             {
                 Color sc = s.color;
                 sc.a = targetAlpha - s.color.a > 0 ? sc.a + delta : sc.a - delta;
                 sc.a = Mathf.Clamp01(sc.a);
                 s.color = sc;
             });
+        }
+    }
+    public void AddGraphic(SpriteRenderer g)
+    {
+        if (g)
+        {
+            allGraphics.Add(g);
         }
     }
 
@@ -99,7 +110,7 @@ public abstract class MazeGraphics : MonoBehaviour
         foreach (int dirIndex in allDirs)
         {
             GameObject wallGo = Instantiate(wallTemplate, wallAnchors[dirIndex].transform);
-            wallSprites.Add(wallGo.GetComponentInChildren<SpriteRenderer>());
+            allGraphics.Add(wallGo.GetComponentInChildren<SpriteRenderer>());
             switch (dirIndex)
             {
                 case 0:

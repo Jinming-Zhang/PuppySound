@@ -9,6 +9,8 @@ public class GameIntroController : MonoBehaviour
     [SerializeField]
     AudioSource audioSource;
     [SerializeField]
+    AudioClip doggoClip;
+    [SerializeField]
     AudioClip introClip;
     [SerializeField]
     AudioClip startMenuClip;
@@ -24,8 +26,10 @@ public class GameIntroController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource.clip = doggoClip;
+        audioSource.loop = true;
+        audioSource.Play();
         ShowStartMenu();
-
     }
     private void Update()
     {

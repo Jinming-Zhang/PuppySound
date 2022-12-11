@@ -216,6 +216,11 @@ public class DungeonViewer : MonoBehaviour
 
     public void SetExitLocation(MazeLocation exit)
     {
-        Instantiate(exitTemplate, mazeCells[exit.Row, exit.Col].transform);
+        GameObject go = Instantiate(exitTemplate, mazeCells[exit.Row, exit.Col].transform);
+        SpriteRenderer exitSprite = go.GetComponentInChildren<SpriteRenderer>();
+        Color c = exitSprite.color;
+        c.a = 0;
+        exitSprite.color = c;
+        mazeCells[exit.Row, exit.Col].AddGraphic(exitSprite);
     }
 }

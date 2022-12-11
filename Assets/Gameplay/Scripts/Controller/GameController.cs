@@ -104,7 +104,7 @@ public class GameController : MonoBehaviour
         MazeLocation poppyLocation = viewer.worldLocationToMazeLocation(puppy.transform.position);
         MazeLocation reedLocation = viewer.worldLocationToMazeLocation(player.transform.position);
         MazeLocation monsterLocation = viewer.worldLocationToMazeLocation(monster.transform.position);
-        if (poppyLocation != reedLocation && !debugging)
+        if (poppyLocation != reedLocation && !debugging && !foundPuppy)
         {
             puppy.Hide();
         }

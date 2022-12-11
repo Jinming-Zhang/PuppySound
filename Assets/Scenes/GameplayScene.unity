@@ -1104,9 +1104,9 @@ MonoBehaviour:
   exitTemplate: {fileID: 5984603925391310780, guid: 82b7bb95b41a1034ba53eb2a7906d002, type: 3}
   mazeDepth: 0
   characterDepth: -1
-  floor1: {fileID: 21300000, guid: 675cb6411f36989469f42a1a69297d71, type: 3}
-  floor2: {fileID: 21300000, guid: c08fe9ac588ebb84a8585f482865c8ca, type: 3}
-  floor3: {fileID: 21300000, guid: 32e1f804f7b0df04eb563bea2f424c08, type: 3}
+  floor1: {fileID: 1063155839, guid: 1a00463f1abbb9741be598c425ce62df, type: 3}
+  floor2: {fileID: -1462203658, guid: 1a00463f1abbb9741be598c425ce62df, type: 3}
+  floor3: {fileID: 174273867, guid: 1a00463f1abbb9741be598c425ce62df, type: 3}
   cellScale: 0.5
   cellRoot: {fileID: 551401888}
   showAll: 0
