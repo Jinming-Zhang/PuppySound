@@ -321,9 +321,9 @@ public class GameController : MonoBehaviour
     {
         if (!playerFoundExit)
         {
-            StartCoroutine(gamendCR());
+            StartCoroutine(GameEndCR());
         }
-        IEnumerator gamendCR()
+        IEnumerator GameEndCR()
         {
             playerFoundExit = true;
             player.controllable = false;
@@ -335,6 +335,17 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(4f);
             fader.FadeToBlack(2, () => SceneManager.LoadScene("HappyEnding"));
 
+        }
+    }
+
+    public void OnPuppyDeath()
+    {
+        StartCoroutine(PuppyDeadCR());
+        IEnumerator PuppyDeadCR()
+        {
+            PlayerSays($"No! My Puppy!");
+            yield return new WaitForSeconds(4f);
+            fader.FadeToBlack(2, () => SceneManager.LoadScene("SadSadSad"));
         }
     }
 }

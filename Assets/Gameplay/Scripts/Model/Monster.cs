@@ -10,6 +10,11 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private Puppy puppy;
 
+    [SerializeField]
+    private AudioClip encounterMusic;
+
+    private bool hasEncountered = false;
+
     //[SerializeField]
     //private MazeLocation location;
 
@@ -37,7 +42,6 @@ public class Monster : MonoBehaviour
     }
 
 
-
     private void FixedUpdate()
     {
         if (Vector3.Distance(targetLocation, transform.position) > .1f)
@@ -50,7 +54,12 @@ public class Monster : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"Collided with {collision.gameObject.name}");
+        if (!hasEncountered)
+        {
+            AudioSource.PlayClipAtPoint(this.encounterMusic, this.transform.position);
+            hasEncountered = true;
+        }
+        
     }
 
     public void OnPlayerCalling(int playerSoundStrength, int puppySoundStrength, MazeLocation playerLocation, MazeLocation puppyLocation)

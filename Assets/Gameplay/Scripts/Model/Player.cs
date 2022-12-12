@@ -26,8 +26,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int maxPanicLevel = 16;
 
-    private int panicThreshold1 = 5;
-    private int panicThreshold2 = 2;
+    private int panicDistanceThreshold1 = 10;
+    private int panicDistanceThreshold2 = 3;
+    private float speedDecrement1 = 0.2f;
+    private float speedDecrement2 = 0.4f;
 
     private int currentPanicLevel = 0;
 
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour
     private float stressTimer = 5f;
 
     public bool controllable = true;
+
     void Start()
     {
         this.panicBar.SetMaxHealth(this.maxPanicLevel, 4, 7);
@@ -47,7 +50,7 @@ public class Player : MonoBehaviour
         float currentSpeed = 0f;
         int currentDistanceToMonster = GameController.Instance.PlayerToMonster();
 
-        if (currentDistanceToMonster <= this.panicThreshold1 && currentDistanceToMonster > this.panicThreshold2)
+        if (currentDistanceToMonster <= this.panicDistanceThreshold1 && currentDistanceToMonster > this.panicDistanceThreshold2)
         {
             if (stressTimer > 0)
             {
@@ -58,22 +61,22 @@ public class Player : MonoBehaviour
                 this.currentPanicLevel += 1;
                 stressTimer = 5f;
             }
-            currentSpeed = playerSpeed - 0.5f;
+            currentSpeed = playerSpeed - speedDecrement1;
         }
-        else if (currentDistanceToMonster <= panicThreshold2)
+        else if (currentDistanceToMonster <= panicDistanceThreshold2)
         {
             if (stressTimer > 0)
             {
-                stressTimer -= Time.deltaTime * 2;
+                stressTimer -= Time.deltaTime * 1.5f;
             }
             else if (stressTimer <= 0)
             {
                 this.currentPanicLevel += 1;
                 stressTimer = 5f;
             }
-            currentSpeed = playerSpeed - 1f;
+            currentSpeed = playerSpeed - speedDecrement2;
         }
-        else if (currentDistanceToMonster > this.panicThreshold1)
+        else if (currentDistanceToMonster > this.panicDistanceThreshold1)
         {
             if (stressTimer >= 5f)
             {

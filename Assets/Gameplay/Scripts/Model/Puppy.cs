@@ -21,7 +21,7 @@ public class Puppy : MonoBehaviour
     [SerializeField]
     private int comfortEffect = 2;
 
-    private float timeBeforePanicIncreace = 10;
+    private float timeBeforePanicIncreace = 5;
 
     public int SoundStrength { get => soundStrength; }
 

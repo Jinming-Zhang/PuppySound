@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
     WalkableChecker checker;
     private float horizontal;
     private float vertical;
-    private float speed = 2f;
-    public float Speed { get => speed; }
+
+    public float Speed { get; set; }
     private bool facingRight = false;
     private bool facingLeft = false;
     private bool facingDown = false;
@@ -23,6 +23,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Dictionary<string, bool> animationState;
 
+    // audios
+    [SerializeField]
+    List<AudioClip> steps;
+
+    private float stepTimer = 0.5f;
 
     private void Awake()
     {
@@ -65,8 +70,25 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-        this.speed = speed;
+        this.Speed = speed;
+        animator.speed = speed / 1.2f;
         updateFacing();
+
+        if (horizontal != 0f || vertical != 0f)
+        {
+            if (stepTimer == 1.0f)
+            {
+                int stepIndex = Random.Range(0, steps.Count);
+                AudioSource.PlayClipAtPoint(steps[stepIndex], transform.position, 0.5f);
+            }
+
+            stepTimer -= (Speed / 50.0f);
+
+            if (stepTimer < 0f)
+            {
+                stepTimer = 1.0f;
+            }
+        }
     }
 
     bool IsPositionOnMaze(Vector3 position)

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Audio Config
   m_EditorClassIdentifier: 
   overAllVolume: 1
-  musicVolume: 0.609
+  musicVolume: 0.472
   sfxVolume: 0.713
   TransitionDuration: 3

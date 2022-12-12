@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   puppy: {fileID: 0}
+  encounterMusic: {fileID: 8300000, guid: 8a1bb19ba4210714899043227178a056, type: 3}
   speed: 2
   spriteRenderer: {fileID: 7638387139054037133}
 --- !u!61 &7700303736605937129

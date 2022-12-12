@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.28}
+  m_LocalPosition: {x: 0, y: 0, z: -2.2800002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -250,7 +250,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142665850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.28}
+  m_LocalPosition: {x: 0, y: 0, z: -2.2800002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -425,14 +425,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3665522768420177005}
-  m_LocalRotation: {x: 0.37078112, y: -0, z: -0, w: 0.9287203}
-  m_LocalPosition: {x: 0, y: -0.049, z: 0.015}
-  m_LocalScale: {x: 0.52020043, y: 0.52020043, z: 0.52020043}
+  m_LocalRotation: {x: -0, y: -0, z: -0.04101611, w: 0.9991585}
+  m_LocalPosition: {x: 0.003, y: -0.055, z: 0.015}
+  m_LocalScale: {x: 0.30854583, y: 0.30854583, z: 0.30854583}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8494377291978683211}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 43.528, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -4.701}
 --- !u!212 &1593848451053369570
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -566,8 +566,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.08
+  m_Color: {r: 1, g: 0.6666666, b: 0.6666666, a: 1}
+  m_Intensity: 0.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -763,6 +763,13 @@ MonoBehaviour:
   checker: {fileID: 7838179732011807807}
   rb: {fileID: 7838179732011807804}
   animator: {fileID: 4847651584791515938}
+  steps:
+  - {fileID: 8300000, guid: de7a1889a950a9b4c9adff5f863f763b, type: 3}
+  - {fileID: 8300000, guid: 3fe6a8e60df89f3418b8cd6058e68bd5, type: 3}
+  - {fileID: 8300000, guid: 33254abe9ecc05f43b85688bf8ec3d02, type: 3}
+  - {fileID: 8300000, guid: d3185bdda4561e640b57bff455a9dd71, type: 3}
+  - {fileID: 8300000, guid: c62a2fe4bfe767444af3f2addb012a81, type: 3}
+  - {fileID: 8300000, guid: d93b6966799021e47baa1ac9d617ac59, type: 3}
 --- !u!114 &7838179732011807807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,11 +803,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 7838179732011807802}
-  playerSpeed: 2
+  playerSpeed: 1.2
   puppy: {fileID: 0}
   monster: {fileID: 0}
   soundStrength: 5
-  maxPanicLevel: 10
+  maxPanicLevel: 16
   panicBar: {fileID: 0}
   controllable: 1
 --- !u!1 &7838179732875154190
