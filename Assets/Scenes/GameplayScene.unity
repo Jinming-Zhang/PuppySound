@@ -182,6 +182,7 @@ MonoBehaviour:
   services:
   - {fileID: 263209167}
   audioData: {fileID: 11400000, guid: aca921babdb6460418f7c5116d666a4d, type: 2}
+  doggoWhiningClip: {fileID: 8300000, guid: 7df55f7af29f0134ba605d7792a6e4d7, type: 3}
   mazeHeight: 10
   mazeWidth: 10
   wrapped: 1

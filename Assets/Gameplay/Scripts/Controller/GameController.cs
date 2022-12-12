@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour
 
     [Header("Audio")]
     public GameAudioData audioData;
+    [SerializeField]
+    AudioClip doggoWhiningClip;
 
     [Header("Maze Configuration")]
     [SerializeField]
@@ -71,6 +73,7 @@ public class GameController : MonoBehaviour
     // game state tracking
     bool foundPuppy;
     bool playerDead;
+    bool puppyDead;
     bool playerFoundExit;
     private void Awake()
     {
@@ -306,6 +309,7 @@ public class GameController : MonoBehaviour
         if (!playerDead)
         {
             playerDead = true;
+            GameStaticData.DEAD = GameStaticData.PLAYER_NAME;
             StartCoroutine(PlayerDeadCR());
         }
         IEnumerator PlayerDeadCR()
@@ -340,10 +344,16 @@ public class GameController : MonoBehaviour
 
     public void OnPuppyDeath()
     {
-        StartCoroutine(PuppyDeadCR());
+        if (!puppyDead)
+        {
+            puppyDead = true;
+            GameStaticData.DEAD = GameStaticData.DOGGO_NAME;
+            StartCoroutine(PuppyDeadCR());
+        }
         IEnumerator PuppyDeadCR()
         {
-            PlayerSays($"No! My Puppy!");
+            PlayerSays($"No! {GameStaticData.DOGGO_NAME}!!!!");
+            AudioSystem.Instance.PlaySFXOnCamera(doggoWhiningClip);
             yield return new WaitForSeconds(4f);
             fader.FadeToBlack(2, () => SceneManager.LoadScene("SadSadSad"));
         }

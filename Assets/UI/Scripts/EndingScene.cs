@@ -19,7 +19,9 @@ public class EndingScene : MonoBehaviour
     [SerializeField]
     float showBtnDuration = 3f;
     [SerializeField]
-    List<TransitionPanel.TransitionData> endData;
+    List<TransitionPanel.TransitionData> playerDeadEndingData;
+    [SerializeField]
+    List<TransitionPanel.TransitionData> doggoDeadEndingData;
     float countdown;
 
     // Start is called before the first frame update
@@ -30,7 +32,14 @@ public class EndingScene : MonoBehaviour
         audioSource.loop = true;
         audioSource.Play();
         countdown = audioSource.clip.length;
-        endData.ForEach(d => transitionPanel.AddTransitionTask(d));
+        if (GameStaticData.DEAD.Equals(GameStaticData.PLAYER_NAME))
+        {
+            playerDeadEndingData.ForEach(d => transitionPanel.AddTransitionTask(d));
+        }
+        else if (GameStaticData.DEAD.Equals(GameStaticData.DOGGO_NAME))
+        {
+            doggoDeadEndingData.ForEach(d => transitionPanel.AddTransitionTask(d));
+        }
         transitionPanel.Action(() =>
         {
             StartCoroutine(ShowBtnGroupCR());
@@ -57,7 +66,7 @@ public class EndingScene : MonoBehaviour
         countdown -= Time.deltaTime;
         if (countdown < 0)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("GameplayScene");
         }
     }
 

@@ -64,6 +64,11 @@ public class Puppy : MonoBehaviour
     {
         if (!reed)
         {
+            if (panicLevel >= maxPanicLevel)
+            {
+                GameController.Instance.OnPuppyDeath();
+                return;
+            }
             timeBeforePanicIncreace -= Time.deltaTime;
             if (timeBeforePanicIncreace <= 0)
             {
