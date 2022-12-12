@@ -201,7 +201,7 @@ MonoBehaviour:
   monsterAudio: {fileID: 8300000, guid: 80807be76c63a9f41b65142ab98fc7e2, type: 3}
   notificationTemplate: {fileID: 1257216846}
   canvas: {fileID: 1186172646}
-  debugging: 0
+  debugging: 1
 --- !u!1 &84976935
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +789,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389495741}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
@@ -957,8 +957,8 @@ MonoBehaviour:
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.77647436, b: 0.5613208, a: 1}
+  m_Intensity: 0.84
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -1241,6 +1241,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.06990051
       objectReference: {fileID: 0}
+    - target: {fileID: 1761806291234658361, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9878b6f1290ef41e88b30f08f68537fd, type: 3}
     - target: {fileID: 1851786231930965376, guid: 10d626edc18a334438d59276750bb95b, type: 3}
       propertyPath: m_Type
       value: 1
@@ -1464,6 +1468,22 @@ PrefabInstance:
     - target: {fileID: 6783375110294112444, guid: 10d626edc18a334438d59276750bb95b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018211190375593685, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 82.5789
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018211190375593685, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 81.5782
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018211190375593685, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018211190375593685, guid: 10d626edc18a334438d59276750bb95b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 16.7
       objectReference: {fileID: 0}
     - target: {fileID: 7107749365986269022, guid: 10d626edc18a334438d59276750bb95b, type: 3}
       propertyPath: m_SizeDelta.x

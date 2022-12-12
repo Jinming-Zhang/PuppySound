@@ -46,7 +46,7 @@ public class EndingScene : MonoBehaviour
     }
     public void ToStartScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("GameplayScene");
     }
     public void Quit()
     {

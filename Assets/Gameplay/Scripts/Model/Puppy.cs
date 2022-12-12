@@ -62,15 +62,18 @@ public class Puppy : MonoBehaviour
     // Update is called once per frame.
     void Update()
     {
-        timeBeforePanicIncreace -= Time.deltaTime;
-        if (timeBeforePanicIncreace <= 0)
+        if (!reed)
         {
-            if (panicLevel < maxPanicLevel)
+            timeBeforePanicIncreace -= Time.deltaTime;
+            if (timeBeforePanicIncreace <= 0)
             {
-                panicLevel++;
-                panicBar.SetPanicLevel(this.panicLevel);
+                if (panicLevel < maxPanicLevel)
+                {
+                    panicLevel++;
+                    panicBar.SetPanicLevel(this.panicLevel);
+                }
+                timeBeforePanicIncreace = 20f;
             }
-            timeBeforePanicIncreace = 20f;
         }
         // Debug.Log("PanicLevel" + panicLevel);
         if (reed)
@@ -131,6 +134,8 @@ public class Puppy : MonoBehaviour
             reed = p;
             followingSpeed = p.Speed;
             GameController.Instance.OnPlayerFoundDog();
+            panicLevel = 0;
+            panicBar.SetPanicLevel(panicLevel);
             Debug.Log("Reed found me!");
         }
     }
