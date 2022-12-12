@@ -29,11 +29,8 @@ public class GameController : MonoBehaviour
     int interconnectivity;
 
     [Header("Maze Components")]
-    [SerializeField]
     private Player player;
-    [SerializeField]
     private Puppy puppy;
-    [SerializeField]
     private Monster monster;
     MazeLocation exit = null;
     public Monster Monster { get => monster; }

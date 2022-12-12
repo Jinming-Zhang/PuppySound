@@ -186,9 +186,6 @@ MonoBehaviour:
   mazeWidth: 10
   wrapped: 1
   interconnectivity: 1
-  player: {fileID: 0}
-  puppy: {fileID: 0}
-  monster: {fileID: 0}
   viewer: {fileID: 1036766422}
   dungeon: {fileID: 1036766425}
   puppyPanicBar: {fileID: 54003666}
