@@ -90,6 +90,7 @@ public class GameController : MonoBehaviour
     {
         InitializeService();
         InitializeDungeon();
+        GameStaticData.ResetStatus();
         if (AudioSystem.Instance)
         {
             AudioSystem.Instance.TransitionBGMQuick(audioData.dungeonBGMClip);
@@ -306,9 +307,11 @@ public class GameController : MonoBehaviour
     }
     public void OnPlayerDead()
     {
-        if (!playerDead)
+        if (!playerDead && !puppyDead && !playerFoundExit)
         {
             playerDead = true;
+            player.controllable = false;
+            puppy.controllable = false;
             GameStaticData.DEAD = GameStaticData.PLAYER_NAME;
             StartCoroutine(PlayerDeadCR());
         }
@@ -323,7 +326,7 @@ public class GameController : MonoBehaviour
     }
     public void OnPlayerFoundExit()
     {
-        if (!playerFoundExit)
+        if (!playerDead && !puppyDead && !playerFoundExit)
         {
             StartCoroutine(GameEndCR());
         }
@@ -331,6 +334,7 @@ public class GameController : MonoBehaviour
         {
             playerFoundExit = true;
             player.controllable = false;
+            puppy.controllable = false;
             PlayerSays($"OMG {GameStaticData.DOGGO_NAME} you found the exit!!");
             yield return new WaitForSeconds(4f);
             PlayerSays($"Let's get out of here!!");
@@ -344,9 +348,11 @@ public class GameController : MonoBehaviour
 
     public void OnPuppyDeath()
     {
-        if (!puppyDead)
+        if (!playerDead && !puppyDead && !playerFoundExit)
         {
             puppyDead = true;
+            puppy.controllable = false;
+            player.controllable = false;
             GameStaticData.DEAD = GameStaticData.DOGGO_NAME;
             StartCoroutine(PuppyDeadCR());
         }

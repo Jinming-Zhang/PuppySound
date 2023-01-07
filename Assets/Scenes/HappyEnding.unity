@@ -1017,12 +1017,11 @@ MonoBehaviour:
   transitionPanel: {fileID: 322912696}
   btnGroup: {fileID: 339859902}
   showBtnDuration: 3
-  endData:
-  - text: 
-    sprite: {fileID: 21300000, guid: 4077aa8dc46f1f7488c3c5be7c4278c2, type: 3}
-    stay: 0
-  - text: 
-    sprite: {fileID: 21300000, guid: 0fa1ec23316e97946ad2748028be64a4, type: 3}
+  playerDeadEndingData: []
+  doggoDeadEndingData: []
+  happyEndingData:
+  - text: player_name and puppy_name run out of the dungeon, and have a happy life.
+    sprite: {fileID: 21300000, guid: 2a14a93c154f34204b4b4844424361e9, type: 3}
     stay: 1
 --- !u!1001 &1867286158
 PrefabInstance:

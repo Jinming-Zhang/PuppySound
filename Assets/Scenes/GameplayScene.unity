@@ -199,7 +199,7 @@ MonoBehaviour:
   monsterAudio: {fileID: 8300000, guid: 80807be76c63a9f41b65142ab98fc7e2, type: 3}
   notificationTemplate: {fileID: 1257216846}
   canvas: {fileID: 1186172646}
-  debugging: 0
+  debugging: 1
 --- !u!1 &84976935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,7 +1107,7 @@ MonoBehaviour:
   floor3: {fileID: 174273867, guid: 1a00463f1abbb9741be598c425ce62df, type: 3}
   cellScale: 0.5
   cellRoot: {fileID: 551401888}
-  showAll: 0
+  showAll: 1
 --- !u!4 &1036766424
 Transform:
   m_ObjectHideFlags: 0
