@@ -22,6 +22,8 @@ public class EndingScene : MonoBehaviour
     List<TransitionPanel.TransitionData> playerDeadEndingData;
     [SerializeField]
     List<TransitionPanel.TransitionData> doggoDeadEndingData;
+    [SerializeField]
+    List<TransitionPanel.TransitionData> happyEndingData;
     float countdown;
 
     // Start is called before the first frame update
@@ -39,6 +41,10 @@ public class EndingScene : MonoBehaviour
         else if (GameStaticData.DEAD.Equals(GameStaticData.DOGGO_NAME))
         {
             doggoDeadEndingData.ForEach(d => transitionPanel.AddTransitionTask(d));
+        }
+        else
+        {
+            happyEndingData.ForEach(d => transitionPanel.AddTransitionTask(d));
         }
         transitionPanel.Action(() =>
         {

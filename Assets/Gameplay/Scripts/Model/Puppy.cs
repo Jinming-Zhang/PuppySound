@@ -36,12 +36,7 @@ public class Puppy : MonoBehaviour
             MazeLocation l = GameController.Instance.Viewer.worldLocationToMazeLocation(transform.position);
             return l;
         }
-        //set => location = value;
     }
-    //public void SetLocation(MazeLocation l)
-    //{
-    //    location = l;
-    //}
 
     public PanicBar panicBar;
     [SerializeField]
@@ -52,6 +47,7 @@ public class Puppy : MonoBehaviour
     float followingDistance = .2f;
     float followingSpeed = 1f;
     PlayerMovement reed;
+    public bool controllable = true;
 
     // Start is called before the first frame update.
     void Start()
@@ -62,6 +58,10 @@ public class Puppy : MonoBehaviour
     // Update is called once per frame.
     void Update()
     {
+        if (!controllable)
+        {
+            return;
+        }
         if (!reed)
         {
             if (panicLevel >= maxPanicLevel)

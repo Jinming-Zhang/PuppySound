@@ -47,6 +47,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!controllable)
+        {
+            return;
+        }
         float currentSpeed = 0f;
         int currentDistanceToMonster = GameController.Instance.PlayerToMonster();
 

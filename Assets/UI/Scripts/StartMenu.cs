@@ -35,8 +35,15 @@ public class StartMenu : MonoBehaviour
     {
         if (!fadedInputPanel)
         {
-            GameStaticData.PLAYER_NAME = playerNameInputField.text;
-            GameStaticData.DOGGO_NAME = puppyNameInputField.text;
+            if (!string.IsNullOrEmpty(playerNameInputField.text))
+            {
+                GameStaticData.PLAYER_NAME = playerNameInputField.text;
+            }
+            if (!string.IsNullOrEmpty(puppyNameInputField.text))
+            {
+                GameStaticData.DOGGO_NAME = puppyNameInputField.text;
+            }
+
             fadedInputPanel = true;
             StartCoroutine(FadeoutInputPanel());
         }
