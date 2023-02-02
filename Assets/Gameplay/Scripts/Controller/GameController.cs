@@ -75,6 +75,7 @@ public class GameController : MonoBehaviour
     bool playerDead;
     bool puppyDead;
     bool playerFoundExit;
+    bool initialized = false;
     private void Awake()
     {
         if (instance && instance != this)
@@ -88,7 +89,11 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        //if (!initialized)
+        //{
+        //    initialized = true;
         InitializeService();
+        //}
         InitializeDungeon();
         if (AudioSystem.Instance)
         {
@@ -96,6 +101,16 @@ public class GameController : MonoBehaviour
         }
         playerBarText.text = GameStaticData.PLAYER_NAME;
         puppyBarText.text = GameStaticData.DOGGO_NAME;
+    }
+    private void OnDestroy()
+    {
+        if (services != null)
+        {
+            foreach (GameService service in services)
+            {
+                ServiceLocator.DeregisterService(service);
+            }
+        }
     }
     private void Update()
     {
