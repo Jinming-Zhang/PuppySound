@@ -522,15 +522,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7482667652216324306, guid: 3034af825840bae43b371659344bef34, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: a2fba89c7177ce94eb6f3e66c77ef167, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -715,7 +715,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0.57398313, b: 0, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1248,22 +1248,22 @@ MonoBehaviour:
   transitionPanel: {fileID: 1004419425}
   introData:
   - text: Once upon a time
-    sprite: {fileID: 21300000, guid: 0a64d0e2ce5f744ac96f3f9759991460, type: 3}
+    sprite: {fileID: 21300000, guid: c49f0cbe64f6e2c4b8182f6edc4f5e60, type: 3}
     stay: 0
   - text: player_name and his puppy, puppy_name, walked into a dungeon
-    sprite: {fileID: 21300000, guid: 695bf1a0f9b004b57b57a6b3f78e4322, type: 3}
+    sprite: {fileID: 21300000, guid: ee91df1a59bf0f844be26432ded28526, type: 3}
     stay: 0
   - text: Little puppy get lost
-    sprite: {fileID: 21300000, guid: c4550c49b87864e6fa713c5050fff80c, type: 3}
+    sprite: {fileID: 21300000, guid: 0ac223964b1619a46a7a6cdebd868fe5, type: 3}
     stay: 0
   - text: player_name can't live without puppy_name
-    sprite: {fileID: 21300000, guid: ed1040a00dc884dc8a1cecce7ccc33c4, type: 3}
+    sprite: {fileID: 21300000, guid: ea969c060ed8d8545874585d8e472afe, type: 3}
     stay: 0
   - text: He rushed into the dungeon to find puppy_name
-    sprite: {fileID: 21300000, guid: 61d43c9213e96492da5161e16d57dfc9, type: 3}
+    sprite: {fileID: 21300000, guid: 928d14ca9844b2545b44877b6a371c2c, type: 3}
     stay: 0
   - text: So the advanture begin...
-    sprite: {fileID: 21300000, guid: 19ede287137504ab8ab51ea773c382b2, type: 3}
+    sprite: {fileID: 21300000, guid: 98b01ca2d31c0cb4696a86fe021a714f, type: 3}
     stay: 1
   startPanel: {fileID: 787401883}
 --- !u!4 &1707244576
@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f6979a625775b0343acbbba29cac74f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05c64ed0210c83c429339682d1f32402, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
